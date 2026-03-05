@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { ChevronRight, ArrowLeft, Phone, CheckCircle2, AlertTriangle } from "lucide-react";
-import logo from "@/assets/logo.jpg";
+import logo from "@/assets/logo.png";
 import {
   phoneModels,
   storageOptions,
