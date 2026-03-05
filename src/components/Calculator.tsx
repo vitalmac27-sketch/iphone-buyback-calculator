@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { ChevronRight, ArrowLeft, Phone, CheckCircle2 } from "lucide-react";
-import logo from "@/assets/logo.jpg";
+import { ChevronRight, ArrowLeft, Phone, CheckCircle2, AlertTriangle } from "lucide-react";
+import logo from "@/assets/logo.png";
 import {
   phoneModels,
   storageOptions,
@@ -11,7 +11,7 @@ import {
   type ConditionOption,
 } from "@/data/calculatorData";
 
-type Step = "welcome" | "model" | "storage" | "condition" | "screen" | "battery" | "completeness" | "result";
+type Step = "welcome" | "model" | "unsupported" | "storage" | "condition" | "screen" | "battery" | "completeness" | "result";
 
 const STEPS_ORDER: Step[] = ["welcome", "model", "storage", "condition", "screen", "battery", "completeness", "result"];
 
@@ -25,7 +25,7 @@ const Calculator = () => {
   const [selectedCompleteness, setSelectedCompleteness] = useState("");
 
   const currentIndex = STEPS_ORDER.indexOf(step);
-  const totalSteps = STEPS_ORDER.length - 2; // exclude welcome and result
+  const totalSteps = STEPS_ORDER.length - 2;
   const progressStep = currentIndex > 0 && currentIndex < STEPS_ORDER.length - 1 ? currentIndex : 0;
 
   const goNext = () => {
@@ -34,6 +34,10 @@ const Calculator = () => {
   };
 
   const goBack = () => {
+    if (step === "unsupported") {
+      setStep("model");
+      return;
+    }
     const idx = STEPS_ORDER.indexOf(step);
     if (idx > 0) setStep(STEPS_ORDER[idx - 1]);
   };
@@ -64,6 +68,32 @@ const Calculator = () => {
     setSelectedScreen("");
     setSelectedBattery("");
     setSelectedCompleteness("");
+  };
+
+  const buildContactMessage = () => {
+    const model = phoneModels.find((m) => m.id === selectedModel);
+    const storage = storageOptions.find((s) => s.id === selectedStorage);
+    const condition = conditionOptions.find((c) => c.id === selectedCondition);
+    const screen = screenOptions.find((s) => s.id === selectedScreen);
+    const battery = batteryOptions.find((b) => b.id === selectedBattery);
+    const completeness = complectnessOptions.find((c) => c.id === selectedCompleteness);
+    const price = calculatePrice();
+
+    return `Здравствуйте! Хочу продать iPhone.\n\nМодель: ${model?.name ?? ""}\nПамять: ${storage?.label ?? ""}\nСостояние корпуса: ${condition?.label ?? ""}\nЭкран: ${screen?.label ?? ""}\nБатарея: ${battery?.label ?? ""}\nКомплектация: ${completeness?.label ?? ""}\n\nПредварительная оценка: ${price.toLocaleString("ru-RU")} ₽`;
+  };
+
+  const whatsappUrl = () => {
+    const msg = encodeURIComponent(buildContactMessage());
+    return `https://wa.me/89503185530?text=${msg}`;
+  };
+
+  const telegramUrl = () => {
+    const msg = encodeURIComponent(buildContactMessage());
+    return `https://t.me/eofffer?text=${msg}`;
+  };
+
+  const vkUrl = () => {
+    return `https://vk.me/skupka_iphones`;
   };
 
   const OptionCard = ({
@@ -134,7 +164,7 @@ const Calculator = () => {
         <div className="w-full max-w-2xl bg-card rounded-2xl shadow-elevated border border-border/50">
           <div className="p-6 md:p-12 max-h-[calc(100vh-80px)] overflow-y-auto">
             {/* Progress bar */}
-            {progressStep > 0 && step !== "result" && (
+            {progressStep > 0 && step !== "result" && step !== "unsupported" && (
               <div className="mb-8">
                 <div className="flex items-center justify-between mb-2">
                   <button onClick={goBack} className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors">
@@ -153,16 +183,25 @@ const Calculator = () => {
               </div>
             )}
 
+            {/* Back button for unsupported */}
+            {step === "unsupported" && (
+              <div className="mb-8">
+                <button onClick={goBack} className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors">
+                  <ArrowLeft className="w-4 h-4" /> Назад
+                </button>
+              </div>
+            )}
+
             {/* Welcome */}
             {step === "welcome" && (
               <div className="text-center space-y-8 animate-fade-in-up">
                 <div className="flex flex-col items-center space-y-6">
                   <div className="relative">
                     <div className="absolute inset-0 bg-primary/20 blur-3xl rounded-full animate-pulse" />
-                    <img src={logo} alt="Скупка Айфонов" className="relative w-40 h-40 object-contain drop-shadow-2xl" />
+                    <img src={logo} alt="Скупка Айфонов" className="relative w-40 h-40 object-contain rounded-2xl" />
                   </div>
                   <p className="text-sm font-medium text-primary tracking-wider uppercase">
-                    Сервис выкупа iPhone
+                    Скупка-айфонов.рф
                   </p>
                 </div>
                 <div className="space-y-4">
@@ -194,10 +233,50 @@ const Calculator = () => {
                       selected={selectedModel === model.id}
                       onClick={() => {
                         setSelectedModel(model.id);
-                        setTimeout(goNext, 300);
+                        if (model.supported) {
+                          setTimeout(goNext, 300);
+                        } else {
+                          setTimeout(() => setStep("unsupported"), 300);
+                        }
                       }}
                     />
                   ))}
+                </div>
+              </div>
+            )}
+
+            {/* Unsupported model */}
+            {step === "unsupported" && (
+              <div className="text-center space-y-8 animate-fade-in-up">
+                <div className="space-y-4">
+                  <div className="w-20 h-20 bg-destructive/20 rounded-full flex items-center justify-center mx-auto">
+                    <AlertTriangle className="w-10 h-10 text-destructive" />
+                  </div>
+                  <h2 className="text-2xl md:text-3xl font-bold text-foreground">
+                    К сожалению, эту модель мы не выкупаем
+                  </h2>
+                  <p className="text-muted-foreground text-lg">
+                    Мы принимаем iPhone от 13 серии и новее. Выберите другую модель или свяжитесь с нами для уточнения.
+                  </p>
+                </div>
+                <div className="flex flex-col gap-3">
+                  <button
+                    onClick={() => {
+                      setSelectedModel("");
+                      setStep("model");
+                    }}
+                    className="w-full h-14 bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-all text-lg font-semibold rounded-2xl shadow-lg text-primary-foreground flex items-center justify-center gap-2"
+                  >
+                    Выбрать другую модель
+                  </button>
+                  <a
+                    href="https://wa.me/89503185530?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%A5%D0%BE%D1%87%D1%83%20%D1%83%D0%B7%D0%BD%D0%B0%D1%82%D1%8C%20%D0%BE%20%D0%B2%D1%8B%D0%BA%D1%83%D0%BF%D0%B5."
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full h-14 border-2 border-border hover:border-muted-foreground/30 transition-all text-lg font-semibold rounded-2xl text-foreground flex items-center justify-center"
+                  >
+                    Связаться с нами
+                  </a>
                 </div>
               </div>
             )}
@@ -265,12 +344,28 @@ const Calculator = () => {
                 </div>
                 <div className="flex flex-col gap-3">
                   <a
-                    href="https://wa.me/"
+                    href={whatsappUrl()}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-full h-14 bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-all text-lg font-semibold rounded-2xl shadow-lg text-primary-foreground flex items-center justify-center gap-2"
+                    className="w-full h-14 bg-[hsl(142,70%,40%)] hover:bg-[hsl(142,70%,35%)] transition-all text-lg font-semibold rounded-2xl shadow-lg text-primary-foreground flex items-center justify-center gap-2"
                   >
-                    Связаться в WhatsApp
+                    💬 WhatsApp
+                  </a>
+                  <a
+                    href={telegramUrl()}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full h-14 bg-[hsl(200,80%,50%)] hover:bg-[hsl(200,80%,45%)] transition-all text-lg font-semibold rounded-2xl shadow-lg text-primary-foreground flex items-center justify-center gap-2"
+                  >
+                    ✈️ Telegram
+                  </a>
+                  <a
+                    href={vkUrl()}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full h-14 bg-[hsl(220,60%,50%)] hover:bg-[hsl(220,60%,45%)] transition-all text-lg font-semibold rounded-2xl shadow-lg text-primary-foreground flex items-center justify-center gap-2"
+                  >
+                    🔵 ВКонтакте
                   </a>
                   <button
                     onClick={restart}
