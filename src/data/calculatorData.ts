@@ -67,8 +67,8 @@ export const conditionOptions: ConditionOption[] = [
 ];
 
 export const screenOptions: ConditionOption[] = [
-  { id: "original_perfect", label: "Оригинал, без дефектов", description: "Родной экран Apple без повреждений", multiplier: 1.0 },
-  { id: "original_scratched", label: "Оригинал, есть царапины", description: "Родной экран с косметическими дефектами", multiplier: 0.92 },
+  { id: "original_perfect", label: "Без дефектов", description: "Родной экран Apple без повреждений", multiplier: 1.0 },
+  { id: "original_scratched", label: "Есть царапины", description: "Родной экран с косметическими дефектами", multiplier: 0.92 },
   { id: "replaced", label: "Заменён", description: "Экран был заменён (не оригинал)", multiplier: 0.8 },
   { id: "cracked", label: "Разбит", description: "Экран треснут или не работает", multiplier: 0.6 },
 ];
