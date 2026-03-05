@@ -109,11 +109,16 @@ const Calculator = () => {
   }) => (
     <button
       onClick={onClick}
-      className={`w-full text-left p-4 rounded-xl border-2 transition-all duration-200 ${
+      className={`w-full text-left p-4 rounded-xl border transition-all duration-300 ${
         selected
-          ? "border-primary bg-primary/10"
-          : "border-border hover:border-muted-foreground/30 hover:bg-secondary/50"
+          ? "border-primary/60 shadow-[0_0_20px_-4px_hsl(160,55%,45%,0.3)]"
+          : "border-[var(--glass-border)] hover:border-primary/30"
       }`}
+      style={{
+        background: selected ? 'var(--glass-highlight)' : 'hsla(220, 20%, 16%, 0.4)',
+        backdropFilter: 'blur(12px)',
+        WebkitBackdropFilter: 'blur(12px)',
+      }}
     >
       <div className="flex items-center justify-between">
         <div>
@@ -161,7 +166,7 @@ const Calculator = () => {
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <div className="flex-1 flex items-center justify-center p-4 overflow-y-auto">
-        <div className="w-full max-w-2xl bg-card rounded-2xl shadow-elevated border border-border/50">
+        <div className="w-full max-w-2xl rounded-2xl shadow-elevated border" style={{ background: 'var(--glass-bg)', borderColor: 'var(--glass-border)', backdropFilter: 'blur(24px)', WebkitBackdropFilter: 'blur(24px)' }}>
           <div className="p-6 md:p-12 max-h-[calc(100vh-80px)] overflow-y-auto">
             {/* Progress bar */}
             {progressStep > 0 && step !== "result" && step !== "unsupported" && (
@@ -174,7 +179,7 @@ const Calculator = () => {
                     {progressStep} из {totalSteps}
                   </span>
                 </div>
-                <div className="w-full bg-secondary rounded-full h-1.5">
+                <div className="w-full rounded-full h-1.5" style={{ background: 'hsla(220, 20%, 20%, 0.5)' }}>
                   <div
                     className="bg-primary rounded-full h-1.5 transition-all duration-500"
                     style={{ width: `${(progressStep / totalSteps) * 100}%` }}
@@ -339,7 +344,7 @@ const Calculator = () => {
                     {calculatePrice().toLocaleString("ru-RU")} ₽
                   </p>
                 </div>
-                <div className="bg-secondary/50 rounded-xl p-4 text-sm text-muted-foreground">
+                <div className="rounded-xl p-4 text-sm text-muted-foreground border" style={{ background: 'hsla(220, 20%, 16%, 0.4)', borderColor: 'var(--glass-border)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)' }}>
                   Точная стоимость определяется после осмотра устройства специалистом. Свяжитесь с нами для записи на оценку.
                 </div>
                 <div className="flex flex-col gap-3">
