@@ -161,7 +161,7 @@ const Calculator = () => {
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <div className="flex-1 flex items-center justify-center p-4 overflow-y-auto">
-        <div className="w-full max-w-2xl bg-card rounded-2xl shadow-elevated border border-border/50">
+        <div className="w-full max-w-2xl rounded-2xl shadow-elevated border" style={{ background: 'var(--glass-bg)', borderColor: 'var(--glass-border)', backdropFilter: 'blur(24px)', WebkitBackdropFilter: 'blur(24px)' }}>
           <div className="p-6 md:p-12 max-h-[calc(100vh-80px)] overflow-y-auto">
             {/* Progress bar */}
             {progressStep > 0 && step !== "result" && step !== "unsupported" && (
