@@ -321,7 +321,13 @@ const Calculator = () => {
 
             {/* Result */}
             {step === "result" && (
-              <div className="text-center space-y-8 animate-fade-in-up">
+              <div className="animate-fade-in-up">
+                <div className="mb-6">
+                  <button onClick={goBack} className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors">
+                    <ArrowLeft className="w-4 h-4" /> Назад
+                  </button>
+                </div>
+                <div className="text-center space-y-8">
                 <div className="space-y-4">
                   <div className="w-20 h-20 bg-primary/20 rounded-full flex items-center justify-center mx-auto">
                     <Phone className="w-10 h-10 text-primary" />
