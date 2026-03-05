@@ -179,7 +179,7 @@ const Calculator = () => {
                     {progressStep} из {totalSteps}
                   </span>
                 </div>
-                <div className="w-full bg-secondary rounded-full h-1.5">
+                <div className="w-full rounded-full h-1.5" style={{ background: 'hsla(220, 20%, 20%, 0.5)' }}>
                   <div
                     className="bg-primary rounded-full h-1.5 transition-all duration-500"
                     style={{ width: `${(progressStep / totalSteps) * 100}%` }}
