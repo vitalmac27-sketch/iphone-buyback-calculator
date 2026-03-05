@@ -344,7 +344,7 @@ const Calculator = () => {
                     {calculatePrice().toLocaleString("ru-RU")} ₽
                   </p>
                 </div>
-                <div className="bg-secondary/50 rounded-xl p-4 text-sm text-muted-foreground">
+                <div className="rounded-xl p-4 text-sm text-muted-foreground border" style={{ background: 'hsla(220, 20%, 16%, 0.4)', borderColor: 'var(--glass-border)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)' }}>
                   Точная стоимость определяется после осмотра устройства специалистом. Свяжитесь с нами для записи на оценку.
                 </div>
                 <div className="flex flex-col gap-3">
