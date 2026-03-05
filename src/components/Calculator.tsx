@@ -203,11 +203,8 @@ const Calculator = () => {
                 <div className="flex flex-col items-center space-y-6">
                   <div className="relative">
                     <div className="absolute inset-0 bg-primary/20 blur-3xl rounded-full animate-pulse" />
-                    <img src={logo} alt="Скупка Айфонов" className="relative w-40 h-40 object-contain rounded-2xl" />
+                    <img src={logo} alt="Скупка Айфонов" className="relative w-full max-w-md h-auto object-contain rounded-2xl" />
                   </div>
-                  <p className="text-sm font-medium text-primary tracking-wider uppercase">
-                    Скупка-айфонов.рф
-                  </p>
                 </div>
                 <div className="space-y-4">
                   <h2 className="text-3xl md:text-4xl font-bold text-foreground leading-tight">
