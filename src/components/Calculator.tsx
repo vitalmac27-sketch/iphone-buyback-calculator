@@ -390,6 +390,7 @@ const Calculator = () => {
                   </button>
                 </div>
               </div>
+              </div>
             )}
           </div>
         </div>
