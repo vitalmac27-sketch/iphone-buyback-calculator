@@ -109,11 +109,16 @@ const Calculator = () => {
   }) => (
     <button
       onClick={onClick}
-      className={`w-full text-left p-4 rounded-xl border-2 transition-all duration-200 ${
+      className={`w-full text-left p-4 rounded-xl border transition-all duration-300 ${
         selected
-          ? "border-primary bg-primary/10"
-          : "border-border hover:border-muted-foreground/30 hover:bg-secondary/50"
+          ? "border-primary/60 shadow-[0_0_20px_-4px_hsl(160,55%,45%,0.3)]"
+          : "border-[var(--glass-border)] hover:border-primary/30"
       }`}
+      style={{
+        background: selected ? 'var(--glass-highlight)' : 'hsla(220, 20%, 16%, 0.4)',
+        backdropFilter: 'blur(12px)',
+        WebkitBackdropFilter: 'blur(12px)',
+      }}
     >
       <div className="flex items-center justify-between">
         <div>
