@@ -129,12 +129,13 @@ const Calculator = () => {
   const buildContactMessage = () => {
     const model = phoneModels.find((m) => m.id === selectedModel);
     const storage = storageOptions.find((s) => s.id === selectedStorage);
+    const colorLabel = selectedColor ? modelColors[selectedModel]?.find((c) => c.id === selectedColor)?.label : "";
     const condition = conditionOptions.find((c) => c.id === selectedCondition);
     const screen = screenOptions.find((s) => s.id === selectedScreen);
     const completeness = complectnessOptions.find((c) => c.id === selectedCompleteness);
     const price = calculatePrice();
 
-    return `Здравствуйте! Хочу продать iPhone.\n\nМодель: ${model?.name ?? ""}\nПамять: ${storage?.label ?? ""}\nСостояние корпуса: ${condition?.label ?? ""}\nЭкран: ${screen?.label ?? ""}\nБатарея: ${batteryPercent}%\nКомплектация: ${completeness?.label ?? ""}\n\nПредварительная оценка: ${price.toLocaleString("ru-RU")} ₽`;
+    return `Здравствуйте! Хочу продать iPhone.\n\nМодель: ${model?.name ?? ""}${colorLabel ? ` ${colorLabel}` : ""}\nПамять: ${storage?.label ?? ""}\nСостояние корпуса: ${condition?.label ?? ""}\nЭкран: ${screen?.label ?? ""}\nБатарея: ${batteryPercent}%\nКомплектация: ${completeness?.label ?? ""}\n\nПредварительная оценка: ${price.toLocaleString("ru-RU")} ₽`;
   };
 
   const whatsappUrl = () => {
