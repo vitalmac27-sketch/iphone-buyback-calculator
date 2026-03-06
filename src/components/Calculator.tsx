@@ -362,6 +362,46 @@ const Calculator = () => {
               </div>
             )}
 
+            {/* Color */}
+            {step === "color" && (
+              <div className="animate-fade-in-up">
+                <StepHeader title="Цвет 🎨" subtitle="Какого цвета ваш iPhone?" />
+                <div className="space-y-3">
+                  {availableColors.map((color) => (
+                    <button
+                      key={color.id}
+                      onClick={() => {
+                        setSelectedColor(color.id);
+                        setTimeout(goNext, 300);
+                      }}
+                      className={`w-full text-left p-4 rounded-xl border transition-all duration-300 ${
+                        selectedColor === color.id
+                          ? "border-primary/60 shadow-[0_0_20px_-4px_hsl(160,55%,45%,0.3)]"
+                          : "border-[var(--glass-border)] hover:border-primary/30"
+                      }`}
+                      style={{
+                        background: selectedColor === color.id ? 'var(--glass-highlight)' : 'hsla(220, 20%, 16%, 0.4)',
+                        backdropFilter: 'blur(12px)',
+                        WebkitBackdropFilter: 'blur(12px)',
+                      }}
+                    >
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                          <div
+                            className="w-8 h-8 rounded-full border border-white/20"
+                            style={{ backgroundColor: color.hex }}
+                          />
+                          <p className="font-semibold text-foreground">{color.label}</p>
+                        </div>
+                        {selectedColor === color.id && <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0" />}
+                      </div>
+                    </button>
+                  ))}
+                </div>
+                <BottomBackButton />
+              </div>
+            )}
+
             {/* Condition */}
             {step === "condition" &&
               renderConditionStep("Состояние корпуса 🔍", "Оцените внешний вид вашего iPhone", conditionOptions, selectedCondition, setSelectedCondition)}
