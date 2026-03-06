@@ -87,3 +87,91 @@ export const complectnessOptions: ConditionOption[] = [
   { id: "partial", label: "Частичная", description: "Есть коробка или кабель", multiplier: 0.97 },
   { id: "none", label: "Только телефон", description: "Без аксессуаров и коробки", multiplier: 0.93 },
 ];
+
+export interface ColorOption {
+  id: string;
+  label: string;
+  hex: string;
+}
+
+export const modelColors: Record<string, ColorOption[]> = {
+  "17": [
+    { id: "black", label: "Black", hex: "#1c1c1e" },
+    { id: "blue", label: "Blue", hex: "#5b7fa6" },
+    { id: "white", label: "White", hex: "#f5f5f0" },
+    { id: "sage", label: "Sage", hex: "#a3b18a" },
+    { id: "lavender", label: "Lavender", hex: "#b4a7d6" },
+  ],
+  "17air": [
+    { id: "black", label: "Black", hex: "#1c1c1e" },
+    { id: "blue", label: "Blue", hex: "#5b7fa6" },
+    { id: "white", label: "White", hex: "#f5f5f0" },
+    { id: "gold", label: "Gold", hex: "#d4a853" },
+  ],
+  "17p": [
+    { id: "orange", label: "Orange", hex: "#d4764e" },
+    { id: "blue", label: "Blue", hex: "#5b7fa6" },
+    { id: "silver", label: "Silver", hex: "#c0c0c0" },
+  ],
+  "17pm": [
+    { id: "orange", label: "Orange", hex: "#d4764e" },
+    { id: "blue", label: "Blue", hex: "#5b7fa6" },
+    { id: "silver", label: "Silver", hex: "#c0c0c0" },
+  ],
+};
+
+// Color-specific base prices for iPhone 17 series (after -10,000 deduction)
+// Key format: "modelId_storageId_colorId"
+export const colorPrices: Record<string, number> = {
+  // iPhone 17 256GB
+  "17_256_black": 68500,
+  "17_256_blue": 63500,
+  "17_256_white": 68000,
+  "17_256_sage": 64500,
+  "17_256_lavender": 66000,
+  // iPhone 17 512GB
+  "17_512_black": 76500,
+  "17_512_blue": 81000,
+  "17_512_lavender": 87500,
+  "17_512_sage": 85500,
+  // iPhone 17 Air 256GB
+  "17air_256_black": 73500,
+  "17air_256_blue": 64500,
+  "17air_256_white": 64000,
+  "17air_256_gold": 64500,
+  // iPhone 17 Air 512GB
+  "17air_512_black": 95500,
+  "17air_512_blue": 81500,
+  "17air_512_white": 87500,
+  // iPhone 17 Air 1TB
+  "17air_1024_white": 102500,
+  "17air_1024_gold": 98500,
+  "17air_1024_blue": 94500,
+  // iPhone 17 Pro 256GB
+  "17p_256_orange": 95000,
+  "17p_256_blue": 99000,
+  "17p_256_silver": 104500,
+  // iPhone 17 Pro 512GB
+  "17p_512_orange": 116000,
+  "17p_512_blue": 114500,
+  "17p_512_silver": 125500,
+  // iPhone 17 Pro 1TB
+  "17p_1024_blue": 128000,
+  "17p_1024_orange": 125500,
+  "17p_1024_silver": 140500,
+  // iPhone 17 Pro Max 256GB
+  "17pm_256_orange": 108500,
+  "17pm_256_silver": 111500,
+  "17pm_256_blue": 108500,
+  // iPhone 17 Pro Max 512GB
+  "17pm_512_blue": 121000,
+  "17pm_512_orange": 116500,
+  "17pm_512_silver": 131500,
+  // iPhone 17 Pro Max 1TB
+  "17pm_1024_blue": 140500,
+  "17pm_1024_orange": 138500,
+  "17pm_1024_silver": 141500,
+  // iPhone 17 Pro Max 2TB
+  "17pm_2048_blue": 144500,
+  "17pm_2048_orange": 142500,
+};
