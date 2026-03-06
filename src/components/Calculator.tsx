@@ -7,12 +7,15 @@ import {
   conditionOptions,
   screenOptions,
   complectnessOptions,
+  modelColors,
+  colorPrices,
   type ConditionOption,
 } from "@/data/calculatorData";
 
-type Step = "welcome" | "model" | "unsupported" | "storage" | "condition" | "screen" | "battery" | "completeness" | "result";
+type Step = "welcome" | "model" | "unsupported" | "storage" | "color" | "battery" | "screen" | "condition" | "completeness" | "result";
 
-const STEPS_ORDER: Step[] = ["welcome", "model", "storage", "battery", "screen", "condition", "completeness", "result"];
+const STEPS_ORDER_WITH_COLOR: Step[] = ["welcome", "model", "storage", "color", "battery", "screen", "condition", "completeness", "result"];
+const STEPS_ORDER_NO_COLOR: Step[] = ["welcome", "model", "storage", "battery", "screen", "condition", "completeness", "result"];
 
 const getBatteryMultiplier = (percent: number): number => {
   const map: Record<number, number> = {
