@@ -220,8 +220,7 @@ const Calculator = () => {
               </div>
             )}
 
-            {/* Back button for unsupported & result */}
-            {(step === "unsupported" || step === "result") && <BackButton />}
+            {/* Remove top back button - using bottom buttons instead */}
 
             {/* Welcome */}
             {step === "welcome" && (
