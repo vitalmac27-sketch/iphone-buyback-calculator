@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { ChevronRight, ArrowLeft, Phone, CheckCircle2, AlertTriangle } from "lucide-react";
 import logo from "@/assets/logo.jpg";
 import {
@@ -6,7 +6,6 @@ import {
   storageOptions,
   conditionOptions,
   screenOptions,
-  batteryOptions,
   complectnessOptions,
   type ConditionOption,
 } from "@/data/calculatorData";
@@ -15,18 +14,36 @@ type Step = "welcome" | "model" | "unsupported" | "storage" | "condition" | "scr
 
 const STEPS_ORDER: Step[] = ["welcome", "model", "storage", "condition", "screen", "battery", "completeness", "result"];
 
+const getBatteryMultiplier = (percent: number): number => {
+  if (percent === 100) return 1.0;
+  if (percent >= 97) return 0.99;
+  if (percent >= 94) return 0.97;
+  if (percent >= 91) return 0.95;
+  if (percent >= 88) return 0.93;
+  return 0.9;
+};
+
 const Calculator = () => {
   const [step, setStep] = useState<Step>("welcome");
   const [selectedModel, setSelectedModel] = useState("");
   const [selectedStorage, setSelectedStorage] = useState("");
   const [selectedCondition, setSelectedCondition] = useState("");
   const [selectedScreen, setSelectedScreen] = useState("");
-  const [selectedBattery, setSelectedBattery] = useState("");
+  const [batteryPercent, setBatteryPercent] = useState(100);
   const [selectedCompleteness, setSelectedCompleteness] = useState("");
 
   const currentIndex = STEPS_ORDER.indexOf(step);
   const totalSteps = STEPS_ORDER.length - 2;
   const progressStep = currentIndex > 0 && currentIndex < STEPS_ORDER.length - 1 ? currentIndex : 0;
+
+  const isIPhone17 = selectedModel.startsWith("17");
+
+  const filteredStorageOptions = useMemo(() => {
+    if (isIPhone17) {
+      return storageOptions.filter((s) => s.id !== "128");
+    }
+    return storageOptions.filter((s) => s.id !== "2048");
+  }, [isIPhone17]);
 
   const goNext = () => {
     const idx = STEPS_ORDER.indexOf(step);
@@ -48,14 +65,14 @@ const Calculator = () => {
     const storage = storageOptions.find((s) => s.id === selectedStorage);
     const condition = conditionOptions.find((c) => c.id === selectedCondition);
     const screen = screenOptions.find((s) => s.id === selectedScreen);
-    const battery = batteryOptions.find((b) => b.id === selectedBattery);
+    const batteryMult = getBatteryMultiplier(batteryPercent);
     const completeness = complectnessOptions.find((c) => c.id === selectedCompleteness);
     const price =
       model.basePrice *
       (storage?.multiplier ?? 1) *
       (condition?.multiplier ?? 1) *
       (screen?.multiplier ?? 1) *
-      (battery?.multiplier ?? 1) *
+      batteryMult *
       (completeness?.multiplier ?? 1);
     return Math.round(price / 100) * 100;
   };
@@ -66,7 +83,7 @@ const Calculator = () => {
     setSelectedStorage("");
     setSelectedCondition("");
     setSelectedScreen("");
-    setSelectedBattery("");
+    setBatteryPercent(100);
     setSelectedCompleteness("");
   };
 
@@ -75,11 +92,10 @@ const Calculator = () => {
     const storage = storageOptions.find((s) => s.id === selectedStorage);
     const condition = conditionOptions.find((c) => c.id === selectedCondition);
     const screen = screenOptions.find((s) => s.id === selectedScreen);
-    const battery = batteryOptions.find((b) => b.id === selectedBattery);
     const completeness = complectnessOptions.find((c) => c.id === selectedCompleteness);
     const price = calculatePrice();
 
-    return `Здравствуйте! Хочу продать iPhone.\n\nМодель: ${model?.name ?? ""}\nПамять: ${storage?.label ?? ""}\nСостояние корпуса: ${condition?.label ?? ""}\nЭкран: ${screen?.label ?? ""}\nБатарея: ${battery?.label ?? ""}\nКомплектация: ${completeness?.label ?? ""}\n\nПредварительная оценка: ${price.toLocaleString("ru-RU")} ₽`;
+    return `Здравствуйте! Хочу продать iPhone.\n\nМодель: ${model?.name ?? ""}\nПамять: ${storage?.label ?? ""}\nСостояние корпуса: ${condition?.label ?? ""}\nЭкран: ${screen?.label ?? ""}\nБатарея: ${batteryPercent}%\nКомплектация: ${completeness?.label ?? ""}\n\nПредварительная оценка: ${price.toLocaleString("ru-RU")} ₽`;
   };
 
   const whatsappUrl = () => {
@@ -137,6 +153,14 @@ const Calculator = () => {
     </div>
   );
 
+  const BackButton = () => (
+    <div className="mb-6">
+      <button onClick={goBack} className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors">
+        <ArrowLeft className="w-4 h-4" /> Назад
+      </button>
+    </div>
+  );
+
   const renderConditionStep = (
     title: string,
     subtitle: string,
@@ -188,14 +212,8 @@ const Calculator = () => {
               </div>
             )}
 
-            {/* Back button for unsupported */}
-            {step === "unsupported" && (
-              <div className="mb-8">
-                <button onClick={goBack} className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors">
-                  <ArrowLeft className="w-4 h-4" /> Назад
-                </button>
-              </div>
-            )}
+            {/* Back button for unsupported & result */}
+            {(step === "unsupported" || step === "result") && <BackButton />}
 
             {/* Welcome */}
             {step === "welcome" && (
@@ -288,7 +306,7 @@ const Calculator = () => {
               <div className="animate-fade-in-up">
                 <StepHeader title="Объём памяти 💾" subtitle="Сколько гигабайт у вашего iPhone?" />
                 <div className="space-y-3">
-                  {storageOptions.map((opt) => (
+                  {filteredStorageOptions.map((opt) => (
                     <OptionCard
                       key={opt.id}
                       label={opt.label}
@@ -312,8 +330,52 @@ const Calculator = () => {
               renderConditionStep("Состояние экрана 📺", "Оцените экран вашего iPhone", screenOptions, selectedScreen, setSelectedScreen)}
 
             {/* Battery */}
-            {step === "battery" &&
-              renderConditionStep("Состояние батареи 🔋", "Ёмкость аккумулятора (Настройки → Аккумулятор)", batteryOptions, selectedBattery, setSelectedBattery)}
+            {step === "battery" && (
+              <div className="animate-fade-in-up">
+                <StepHeader title="Состояние батареи 🔋" subtitle="Ёмкость аккумулятора (Настройки → Аккумулятор)" />
+                <div className="space-y-6">
+                  <div
+                    className="rounded-xl border p-6 text-center"
+                    style={{
+                      background: 'var(--glass-highlight)',
+                      borderColor: 'var(--glass-border)',
+                      backdropFilter: 'blur(12px)',
+                      WebkitBackdropFilter: 'blur(12px)',
+                    }}
+                  >
+                    <p className="text-6xl font-extrabold text-primary mb-2">{batteryPercent}%</p>
+                    <p className="text-sm text-muted-foreground">
+                      {batteryPercent === 100 && "Новая батарея"}
+                      {batteryPercent >= 97 && batteryPercent < 100 && "Отличная ёмкость"}
+                      {batteryPercent >= 94 && batteryPercent < 97 && "Очень хорошая ёмкость"}
+                      {batteryPercent >= 91 && batteryPercent < 94 && "Хорошая ёмкость"}
+                      {batteryPercent >= 88 && batteryPercent < 91 && "Нормальная ёмкость"}
+                      {batteryPercent >= 85 && batteryPercent < 88 && "Приемлемая ёмкость"}
+                    </p>
+                  </div>
+                  <div className="px-2">
+                    <input
+                      type="range"
+                      min={85}
+                      max={100}
+                      value={batteryPercent}
+                      onChange={(e) => setBatteryPercent(Number(e.target.value))}
+                      className="w-full h-2 rounded-full appearance-none cursor-pointer accent-primary bg-secondary"
+                    />
+                    <div className="flex justify-between text-xs text-muted-foreground mt-2">
+                      <span>85%</span>
+                      <span>100%</span>
+                    </div>
+                  </div>
+                  <button
+                    onClick={goNext}
+                    className="w-full h-14 bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-all text-lg font-semibold rounded-2xl shadow-lg text-primary-foreground flex items-center justify-center gap-2"
+                  >
+                    Далее <ChevronRight className="w-5 h-5" />
+                  </button>
+                </div>
+              </div>
+            )}
 
             {/* Completeness */}
             {step === "completeness" &&
@@ -322,11 +384,6 @@ const Calculator = () => {
             {/* Result */}
             {step === "result" && (
               <div className="animate-fade-in-up">
-                <div className="mb-6">
-                  <button onClick={goBack} className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors">
-                    <ArrowLeft className="w-4 h-4" /> Назад
-                  </button>
-                </div>
                 <div className="text-center space-y-8">
                 <div className="space-y-4">
                   <div className="w-20 h-20 bg-primary/20 rounded-full flex items-center justify-center mx-auto">

@@ -22,7 +22,7 @@ export const phoneModels: PhoneModel[] = [
   { id: "17pm", name: "iPhone 17 Pro Max", basePrice: 130000, supported: true },
   { id: "17p", name: "iPhone 17 Pro", basePrice: 110000, supported: true },
   { id: "17", name: "iPhone 17", basePrice: 80000, supported: true },
-  { id: "17plus", name: "iPhone 17 Plus", basePrice: 85000, supported: true },
+  { id: "17air", name: "iPhone 17 Air", basePrice: 85000, supported: true },
   { id: "16pm", name: "iPhone 16 Pro Max", basePrice: 95000, supported: true },
   { id: "16p", name: "iPhone 16 Pro", basePrice: 80000, supported: true },
   { id: "16", name: "iPhone 16", basePrice: 60000, supported: true },
