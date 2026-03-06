@@ -326,6 +326,7 @@ const Calculator = () => {
                     />
                   ))}
                 </div>
+                <BottomBackButton />
               </div>
             )}
 
