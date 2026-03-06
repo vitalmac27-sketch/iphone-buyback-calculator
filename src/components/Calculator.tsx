@@ -153,13 +153,6 @@ const Calculator = () => {
     </div>
   );
 
-  const BackButton = () => (
-    <div className="mb-6">
-      <button onClick={goBack} className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors">
-        <ArrowLeft className="w-4 h-4" /> Назад
-      </button>
-    </div>
-  );
 
   const BottomBackButton = () => (
     <button
