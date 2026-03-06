@@ -87,7 +87,7 @@ const Calculator = () => {
       (screen?.multiplier ?? 1) *
       batteryMult *
       (completeness?.multiplier ?? 1);
-    return Math.round(price / 100) * 100;
+    return Math.ceil(price / 500) * 500;
   };
 
   const restart = () => {
