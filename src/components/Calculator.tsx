@@ -341,47 +341,30 @@ const Calculator = () => {
             {step === "battery" && (
               <div className="animate-fade-in-up">
                 <StepHeader title="Состояние батареи 🔋" subtitle="Ёмкость аккумулятора (Настройки → Аккумулятор)" />
-                <div className="space-y-6">
-                  <div
-                    className="rounded-xl border p-6 text-center"
-                    style={{
-                      background: 'var(--glass-highlight)',
-                      borderColor: 'var(--glass-border)',
-                      backdropFilter: 'blur(12px)',
-                      WebkitBackdropFilter: 'blur(12px)',
-                    }}
-                  >
-                    <p className="text-6xl font-extrabold text-primary mb-2">{batteryPercent}%</p>
-                    <p className="text-sm text-muted-foreground">
-                      {batteryPercent === 100 && "Новая батарея"}
-                      {batteryPercent >= 97 && batteryPercent < 100 && "Отличная ёмкость"}
-                      {batteryPercent >= 94 && batteryPercent < 97 && "Очень хорошая ёмкость"}
-                      {batteryPercent >= 91 && batteryPercent < 94 && "Хорошая ёмкость"}
-                      {batteryPercent >= 88 && batteryPercent < 91 && "Нормальная ёмкость"}
-                      {batteryPercent >= 85 && batteryPercent < 88 && "Приемлемая ёмкость"}
-                    </p>
-                  </div>
-                  <div className="px-2">
-                    <input
-                      type="range"
-                      min={85}
-                      max={100}
-                      value={batteryPercent}
-                      onChange={(e) => setBatteryPercent(Number(e.target.value))}
-                      className="w-full h-2 rounded-full appearance-none cursor-pointer accent-primary bg-secondary"
-                    />
-                    <div className="flex justify-between text-xs text-muted-foreground mt-2">
-                      <span>85%</span>
-                      <span>100%</span>
-                    </div>
-                  </div>
-                  <button
-                    onClick={goNext}
-                    className="w-full h-14 bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-all text-lg font-semibold rounded-2xl shadow-lg text-primary-foreground flex items-center justify-center gap-2"
-                  >
-                    Далее <ChevronRight className="w-5 h-5" />
-                  </button>
+                <div className="grid grid-cols-4 gap-2">
+                  {Array.from({ length: 16 }, (_, i) => 100 - i).map((pct) => (
+                    <button
+                      key={pct}
+                      onClick={() => {
+                        setBatteryPercent(pct);
+                        setTimeout(goNext, 300);
+                      }}
+                      className={`h-14 rounded-xl border text-center font-semibold transition-all duration-300 ${
+                        batteryPercent === pct
+                          ? "border-primary/60 shadow-[0_0_20px_-4px_hsl(160,55%,45%,0.3)] text-primary"
+                          : "border-[var(--glass-border)] hover:border-primary/30 text-foreground"
+                      }`}
+                      style={{
+                        background: batteryPercent === pct ? 'var(--glass-highlight)' : 'hsla(220, 20%, 16%, 0.4)',
+                        backdropFilter: 'blur(12px)',
+                        WebkitBackdropFilter: 'blur(12px)',
+                      }}
+                    >
+                      {pct}%
+                    </button>
+                  ))}
                 </div>
+                <BottomBackButton />
               </div>
             )}
 
