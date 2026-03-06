@@ -12,7 +12,7 @@ import {
 
 type Step = "welcome" | "model" | "unsupported" | "storage" | "condition" | "screen" | "battery" | "completeness" | "result";
 
-const STEPS_ORDER: Step[] = ["welcome", "model", "storage", "condition", "screen", "battery", "completeness", "result"];
+const STEPS_ORDER: Step[] = ["welcome", "model", "storage", "battery", "screen", "condition", "completeness", "result"];
 
 const getBatteryMultiplier = (percent: number): number => {
   const map: Record<number, number> = {
