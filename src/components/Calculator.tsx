@@ -161,6 +161,16 @@ const Calculator = () => {
     </div>
   );
 
+  const BottomBackButton = () => (
+    <button
+      onClick={goBack}
+      className="w-full h-12 mt-4 border border-[var(--glass-border)] hover:border-primary/30 transition-all text-sm font-medium rounded-xl text-muted-foreground hover:text-foreground flex items-center justify-center gap-2"
+      style={{ background: 'hsla(220, 20%, 16%, 0.4)', backdropFilter: 'blur(12px)' }}
+    >
+      <ArrowLeft className="w-4 h-4" /> Назад
+    </button>
+  );
+
   const renderConditionStep = (
     title: string,
     subtitle: string,
@@ -184,6 +194,7 @@ const Calculator = () => {
           />
         ))}
       </div>
+      <BottomBackButton />
     </div>
   );
 
