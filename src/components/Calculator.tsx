@@ -92,14 +92,22 @@ const Calculator = () => {
   const calculatePrice = () => {
     const model = phoneModels.find((m) => m.id === selectedModel);
     if (!model) return 0;
-    const storage = storageOptions.find((s) => s.id === selectedStorage);
+
+    let basePrice: number;
+    if (hasColors && selectedColor) {
+      const key = `${selectedModel}_${selectedStorage}_${selectedColor}`;
+      basePrice = colorPrices[key] ?? model.basePrice;
+    } else {
+      const storage = storageOptions.find((s) => s.id === selectedStorage);
+      basePrice = model.basePrice * (storage?.multiplier ?? 1);
+    }
+
     const condition = conditionOptions.find((c) => c.id === selectedCondition);
     const screen = screenOptions.find((s) => s.id === selectedScreen);
     const batteryMult = getBatteryMultiplier(batteryPercent);
     const completeness = complectnessOptions.find((c) => c.id === selectedCompleteness);
     const price =
-      model.basePrice *
-      (storage?.multiplier ?? 1) *
+      basePrice *
       (condition?.multiplier ?? 1) *
       (screen?.multiplier ?? 1) *
       batteryMult *
@@ -111,6 +119,7 @@ const Calculator = () => {
     setStep("welcome");
     setSelectedModel("");
     setSelectedStorage("");
+    setSelectedColor("");
     setSelectedCondition("");
     setSelectedScreen("");
     setBatteryPercent(100);
