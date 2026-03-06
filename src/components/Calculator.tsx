@@ -457,7 +457,7 @@ const Calculator = () => {
                     Предварительная оценка
                   </h2>
                   <div className="space-y-1 text-sm text-muted-foreground">
-                    <p>{phoneModels.find((m) => m.id === selectedModel)?.name} · {storageOptions.find((s) => s.id === selectedStorage)?.label}</p>
+                    <p>{phoneModels.find((m) => m.id === selectedModel)?.name} · {storageOptions.find((s) => s.id === selectedStorage)?.label}{selectedColor ? ` · ${modelColors[selectedModel]?.find((c) => c.id === selectedColor)?.label ?? ""}` : ""}</p>
                     <p>Корпус: {conditionOptions.find((c) => c.id === selectedCondition)?.label} · Экран: {screenOptions.find((s) => s.id === selectedScreen)?.label}</p>
                     <p>Батарея: {batteryPercent}% · {complectnessOptions.find((c) => c.id === selectedCompleteness)?.label}</p>
                   </div>
