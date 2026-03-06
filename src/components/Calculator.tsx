@@ -15,12 +15,25 @@ type Step = "welcome" | "model" | "unsupported" | "storage" | "condition" | "scr
 const STEPS_ORDER: Step[] = ["welcome", "model", "storage", "condition", "screen", "battery", "completeness", "result"];
 
 const getBatteryMultiplier = (percent: number): number => {
-  if (percent === 100) return 1.0;
-  if (percent >= 97) return 0.99;
-  if (percent >= 94) return 0.97;
-  if (percent >= 91) return 0.95;
-  if (percent >= 88) return 0.93;
-  return 0.9;
+  const map: Record<number, number> = {
+    100: 0.93,
+    99: 0.91,
+    98: 0.89,
+    97: 0.87,
+    96: 0.85,
+    95: 0.84,
+    94: 0.83,
+    93: 0.82,
+    92: 0.81,
+    91: 0.80,
+    90: 0.77,
+    89: 0.75,
+    88: 0.72,
+    87: 0.70,
+    86: 0.67,
+    85: 0.65,
+  };
+  return map[percent] ?? 0.65;
 };
 
 const Calculator = () => {
