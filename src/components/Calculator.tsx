@@ -206,10 +206,7 @@ const Calculator = () => {
             {/* Progress bar */}
             {progressStep > 0 && step !== "result" && step !== "unsupported" && (
               <div className="mb-8">
-                <div className="flex items-center justify-between mb-2">
-                  <button onClick={goBack} className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors">
-                    <ArrowLeft className="w-4 h-4" /> Назад
-                  </button>
+                <div className="flex items-center justify-end mb-2">
                   <span className="text-sm text-muted-foreground">
                     {progressStep} из {totalSteps}
                   </span>
