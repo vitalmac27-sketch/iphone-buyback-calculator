@@ -43,16 +43,19 @@ const Calculator = () => {
   const [step, setStep] = useState<Step>("welcome");
   const [selectedModel, setSelectedModel] = useState("");
   const [selectedStorage, setSelectedStorage] = useState("");
+  const [selectedColor, setSelectedColor] = useState("");
   const [selectedCondition, setSelectedCondition] = useState("");
   const [selectedScreen, setSelectedScreen] = useState("");
   const [batteryPercent, setBatteryPercent] = useState(100);
   const [selectedCompleteness, setSelectedCompleteness] = useState("");
 
+  const isIPhone17 = selectedModel.startsWith("17");
+  const hasColors = isIPhone17 && modelColors[selectedModel];
+  const STEPS_ORDER = hasColors ? STEPS_ORDER_WITH_COLOR : STEPS_ORDER_NO_COLOR;
+
   const currentIndex = STEPS_ORDER.indexOf(step);
   const totalSteps = STEPS_ORDER.length - 2;
   const progressStep = currentIndex > 0 && currentIndex < STEPS_ORDER.length - 1 ? currentIndex : 0;
-
-  const isIPhone17 = selectedModel.startsWith("17");
 
   const filteredStorageOptions = useMemo(() => {
     if (isIPhone17) {
@@ -60,6 +63,17 @@ const Calculator = () => {
     }
     return storageOptions.filter((s) => s.id !== "2048");
   }, [isIPhone17]);
+
+  // Filter colors based on available prices for selected storage
+  const availableColors = useMemo(() => {
+    if (!hasColors) return [];
+    const colors = modelColors[selectedModel] || [];
+    if (!selectedStorage) return colors;
+    return colors.filter((c) => {
+      const key = `${selectedModel}_${selectedStorage}_${c.id}`;
+      return colorPrices[key] !== undefined;
+    });
+  }, [selectedModel, selectedStorage, hasColors]);
 
   const goNext = () => {
     const idx = STEPS_ORDER.indexOf(step);
