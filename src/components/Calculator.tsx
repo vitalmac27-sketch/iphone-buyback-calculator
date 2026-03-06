@@ -7,12 +7,15 @@ import {
   conditionOptions,
   screenOptions,
   complectnessOptions,
+  modelColors,
+  colorPrices,
   type ConditionOption,
 } from "@/data/calculatorData";
 
-type Step = "welcome" | "model" | "unsupported" | "storage" | "condition" | "screen" | "battery" | "completeness" | "result";
+type Step = "welcome" | "model" | "unsupported" | "storage" | "color" | "battery" | "screen" | "condition" | "completeness" | "result";
 
-const STEPS_ORDER: Step[] = ["welcome", "model", "storage", "battery", "screen", "condition", "completeness", "result"];
+const STEPS_ORDER_WITH_COLOR: Step[] = ["welcome", "model", "storage", "color", "battery", "screen", "condition", "completeness", "result"];
+const STEPS_ORDER_NO_COLOR: Step[] = ["welcome", "model", "storage", "battery", "screen", "condition", "completeness", "result"];
 
 const getBatteryMultiplier = (percent: number): number => {
   const map: Record<number, number> = {
@@ -40,16 +43,19 @@ const Calculator = () => {
   const [step, setStep] = useState<Step>("welcome");
   const [selectedModel, setSelectedModel] = useState("");
   const [selectedStorage, setSelectedStorage] = useState("");
+  const [selectedColor, setSelectedColor] = useState("");
   const [selectedCondition, setSelectedCondition] = useState("");
   const [selectedScreen, setSelectedScreen] = useState("");
   const [batteryPercent, setBatteryPercent] = useState(100);
   const [selectedCompleteness, setSelectedCompleteness] = useState("");
 
+  const isIPhone17 = selectedModel.startsWith("17");
+  const hasColors = isIPhone17 && modelColors[selectedModel];
+  const STEPS_ORDER = hasColors ? STEPS_ORDER_WITH_COLOR : STEPS_ORDER_NO_COLOR;
+
   const currentIndex = STEPS_ORDER.indexOf(step);
   const totalSteps = STEPS_ORDER.length - 2;
   const progressStep = currentIndex > 0 && currentIndex < STEPS_ORDER.length - 1 ? currentIndex : 0;
-
-  const isIPhone17 = selectedModel.startsWith("17");
 
   const filteredStorageOptions = useMemo(() => {
     if (isIPhone17) {
@@ -57,6 +63,17 @@ const Calculator = () => {
     }
     return storageOptions.filter((s) => s.id !== "2048");
   }, [isIPhone17]);
+
+  // Filter colors based on available prices for selected storage
+  const availableColors = useMemo(() => {
+    if (!hasColors) return [];
+    const colors = modelColors[selectedModel] || [];
+    if (!selectedStorage) return colors;
+    return colors.filter((c) => {
+      const key = `${selectedModel}_${selectedStorage}_${c.id}`;
+      return colorPrices[key] !== undefined;
+    });
+  }, [selectedModel, selectedStorage, hasColors]);
 
   const goNext = () => {
     const idx = STEPS_ORDER.indexOf(step);
@@ -75,14 +92,22 @@ const Calculator = () => {
   const calculatePrice = () => {
     const model = phoneModels.find((m) => m.id === selectedModel);
     if (!model) return 0;
-    const storage = storageOptions.find((s) => s.id === selectedStorage);
+
+    let basePrice: number;
+    if (hasColors && selectedColor) {
+      const key = `${selectedModel}_${selectedStorage}_${selectedColor}`;
+      basePrice = colorPrices[key] ?? model.basePrice;
+    } else {
+      const storage = storageOptions.find((s) => s.id === selectedStorage);
+      basePrice = model.basePrice * (storage?.multiplier ?? 1);
+    }
+
     const condition = conditionOptions.find((c) => c.id === selectedCondition);
     const screen = screenOptions.find((s) => s.id === selectedScreen);
     const batteryMult = getBatteryMultiplier(batteryPercent);
     const completeness = complectnessOptions.find((c) => c.id === selectedCompleteness);
     const price =
-      model.basePrice *
-      (storage?.multiplier ?? 1) *
+      basePrice *
       (condition?.multiplier ?? 1) *
       (screen?.multiplier ?? 1) *
       batteryMult *
@@ -94,6 +119,7 @@ const Calculator = () => {
     setStep("welcome");
     setSelectedModel("");
     setSelectedStorage("");
+    setSelectedColor("");
     setSelectedCondition("");
     setSelectedScreen("");
     setBatteryPercent(100);
@@ -103,12 +129,13 @@ const Calculator = () => {
   const buildContactMessage = () => {
     const model = phoneModels.find((m) => m.id === selectedModel);
     const storage = storageOptions.find((s) => s.id === selectedStorage);
+    const colorLabel = selectedColor ? modelColors[selectedModel]?.find((c) => c.id === selectedColor)?.label : "";
     const condition = conditionOptions.find((c) => c.id === selectedCondition);
     const screen = screenOptions.find((s) => s.id === selectedScreen);
     const completeness = complectnessOptions.find((c) => c.id === selectedCompleteness);
     const price = calculatePrice();
 
-    return `Здравствуйте! Хочу продать iPhone.\n\nМодель: ${model?.name ?? ""}\nПамять: ${storage?.label ?? ""}\nСостояние корпуса: ${condition?.label ?? ""}\nЭкран: ${screen?.label ?? ""}\nБатарея: ${batteryPercent}%\nКомплектация: ${completeness?.label ?? ""}\n\nПредварительная оценка: ${price.toLocaleString("ru-RU")} ₽`;
+    return `Здравствуйте! Хочу продать iPhone.\n\nМодель: ${model?.name ?? ""}${colorLabel ? ` ${colorLabel}` : ""}\nПамять: ${storage?.label ?? ""}\nСостояние корпуса: ${condition?.label ?? ""}\nЭкран: ${screen?.label ?? ""}\nБатарея: ${batteryPercent}%\nКомплектация: ${completeness?.label ?? ""}\n\nПредварительная оценка: ${price.toLocaleString("ru-RU")} ₽`;
   };
 
   const whatsappUrl = () => {
@@ -336,6 +363,46 @@ const Calculator = () => {
               </div>
             )}
 
+            {/* Color */}
+            {step === "color" && (
+              <div className="animate-fade-in-up">
+                <StepHeader title="Цвет 🎨" subtitle="Какого цвета ваш iPhone?" />
+                <div className="space-y-3">
+                  {availableColors.map((color) => (
+                    <button
+                      key={color.id}
+                      onClick={() => {
+                        setSelectedColor(color.id);
+                        setTimeout(goNext, 300);
+                      }}
+                      className={`w-full text-left p-4 rounded-xl border transition-all duration-300 ${
+                        selectedColor === color.id
+                          ? "border-primary/60 shadow-[0_0_20px_-4px_hsl(160,55%,45%,0.3)]"
+                          : "border-[var(--glass-border)] hover:border-primary/30"
+                      }`}
+                      style={{
+                        background: selectedColor === color.id ? 'var(--glass-highlight)' : 'hsla(220, 20%, 16%, 0.4)',
+                        backdropFilter: 'blur(12px)',
+                        WebkitBackdropFilter: 'blur(12px)',
+                      }}
+                    >
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                          <div
+                            className="w-8 h-8 rounded-full border border-white/20"
+                            style={{ backgroundColor: color.hex }}
+                          />
+                          <p className="font-semibold text-foreground">{color.label}</p>
+                        </div>
+                        {selectedColor === color.id && <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0" />}
+                      </div>
+                    </button>
+                  ))}
+                </div>
+                <BottomBackButton />
+              </div>
+            )}
+
             {/* Condition */}
             {step === "condition" &&
               renderConditionStep("Состояние корпуса 🔍", "Оцените внешний вид вашего iPhone", conditionOptions, selectedCondition, setSelectedCondition)}
@@ -391,7 +458,7 @@ const Calculator = () => {
                     Предварительная оценка
                   </h2>
                   <div className="space-y-1 text-sm text-muted-foreground">
-                    <p>{phoneModels.find((m) => m.id === selectedModel)?.name} · {storageOptions.find((s) => s.id === selectedStorage)?.label}</p>
+                    <p>{phoneModels.find((m) => m.id === selectedModel)?.name} · {storageOptions.find((s) => s.id === selectedStorage)?.label}{selectedColor ? ` · ${modelColors[selectedModel]?.find((c) => c.id === selectedColor)?.label ?? ""}` : ""}</p>
                     <p>Корпус: {conditionOptions.find((c) => c.id === selectedCondition)?.label} · Экран: {screenOptions.find((s) => s.id === selectedScreen)?.label}</p>
                     <p>Батарея: {batteryPercent}% · {complectnessOptions.find((c) => c.id === selectedCompleteness)?.label}</p>
                   </div>
