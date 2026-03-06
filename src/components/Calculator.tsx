@@ -390,11 +390,11 @@ const Calculator = () => {
                   <h2 className="text-2xl md:text-3xl font-bold text-foreground">
                     Предварительная оценка
                   </h2>
-                  <p className="text-muted-foreground">
-                    {phoneModels.find((m) => m.id === selectedModel)?.name}
-                    {" · "}
-                    {storageOptions.find((s) => s.id === selectedStorage)?.label}
-                  </p>
+                  <div className="space-y-1 text-sm text-muted-foreground">
+                    <p>{phoneModels.find((m) => m.id === selectedModel)?.name} · {storageOptions.find((s) => s.id === selectedStorage)?.label}</p>
+                    <p>Корпус: {conditionOptions.find((c) => c.id === selectedCondition)?.label} · Экран: {screenOptions.find((s) => s.id === selectedScreen)?.label}</p>
+                    <p>Батарея: {batteryPercent}% · {complectnessOptions.find((c) => c.id === selectedCompleteness)?.label}</p>
+                  </div>
                 </div>
                 <div className="py-6">
                   <p className="text-sm text-muted-foreground mb-2">Ориентировочная стоимость выкупа</p>
