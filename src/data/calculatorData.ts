@@ -37,7 +37,7 @@ export const phoneModels: PhoneModel[] = [
   { id: "14plus", name: "iPhone 14 Plus", basePrice: 38000, supported: true },
   { id: "13pm", name: "iPhone 13 Pro Max", basePrice: 42000, supported: true },
   { id: "13p", name: "iPhone 13 Pro", basePrice: 36000, supported: true },
-  { id: "13", name: "iPhone 13", basePrice: 27000, supported: true },
+  { id: "13", name: "iPhone 13", basePrice: 25000, supported: true },
   { id: "13mini", name: "iPhone 13 Mini", basePrice: 22000, supported: true },
   { id: "12pm", name: "iPhone 12 Pro Max", basePrice: 32000, supported: false },
   { id: "12p", name: "iPhone 12 Pro", basePrice: 27000, supported: false },
