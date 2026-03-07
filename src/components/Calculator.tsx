@@ -226,7 +226,7 @@ const Calculator = () => {
     selected: string,
     onSelect: (id: string) => void
   ) => (
-    <div className="animate-fade-in-up">
+    <div>
       <StepHeader title={title} subtitle={subtitle} />
       <div className="space-y-3">
         {options.map((opt) => (
