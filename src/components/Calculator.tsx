@@ -334,7 +334,6 @@ const Calculator = () => {
                   <button
                     onClick={() => {
                       setSelectedModel("");
-                      setDirection(-1);
                       setStep("model");
                     }}
                     className="w-full h-14 bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-all text-lg font-semibold rounded-2xl shadow-lg text-primary-foreground flex items-center justify-center gap-2"
