@@ -276,16 +276,7 @@ const Calculator = () => {
               </div>
             )}
 
-            <AnimatePresence mode="wait" custom={direction}>
-              <motion.div
-                key={step}
-                custom={direction}
-                variants={slideVariants}
-                initial="enter"
-                animate="center"
-                exit="exit"
-                transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
-              >
+            <div className="animate-fade-in-up">
 
             {/* Welcome */}
             {step === "welcome" && (
