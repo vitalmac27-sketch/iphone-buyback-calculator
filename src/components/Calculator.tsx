@@ -549,8 +549,7 @@ const Calculator = () => {
               </div>
             )}
 
-              </motion.div>
-            </AnimatePresence>
+            </div>
           </div>
         </div>
       </div>
