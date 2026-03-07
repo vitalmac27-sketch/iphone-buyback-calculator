@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 import { ChevronRight, ArrowLeft, Phone, CheckCircle2, AlertTriangle } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import logo from "@/assets/logo.jpg";
 import {
   phoneModels,
@@ -42,7 +42,7 @@ const getBatteryMultiplier = (percent: number): number => {
 
 const Calculator = () => {
   const [step, setStep] = useState<Step>("welcome");
-  const [direction, setDirection] = useState(1);
+  
   const [selectedModel, setSelectedModel] = useState("");
   const [selectedStorage, setSelectedStorage] = useState("");
   const [selectedColor, setSelectedColor] = useState("");
@@ -79,29 +79,16 @@ const Calculator = () => {
 
   const goNext = () => {
     const idx = STEPS_ORDER.indexOf(step);
-    if (idx < STEPS_ORDER.length - 1) {
-      setDirection(1);
-      setStep(STEPS_ORDER[idx + 1]);
-    }
+    if (idx < STEPS_ORDER.length - 1) setStep(STEPS_ORDER[idx + 1]);
   };
 
   const goBack = () => {
     if (step === "unsupported") {
-      setDirection(-1);
       setStep("model");
       return;
     }
     const idx = STEPS_ORDER.indexOf(step);
-    if (idx > 0) {
-      setDirection(-1);
-      setStep(STEPS_ORDER[idx - 1]);
-    }
-  };
-
-  const slideVariants = {
-    enter: (dir: number) => ({ x: dir > 0 ? 80 : -80, opacity: 0 }),
-    center: { x: 0, opacity: 1 },
-    exit: (dir: number) => ({ x: dir > 0 ? -80 : 80, opacity: 0 }),
+    if (idx > 0) setStep(STEPS_ORDER[idx - 1]);
   };
 
   const calculatePrice = () => {
@@ -276,16 +263,7 @@ const Calculator = () => {
               </div>
             )}
 
-            <AnimatePresence mode="wait" custom={direction}>
-              <motion.div
-                key={step}
-                custom={direction}
-                variants={slideVariants}
-                initial="enter"
-                animate="center"
-                exit="exit"
-                transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
-              >
+            <div className="animate-fade-in-up">
 
             {/* Welcome */}
             {step === "welcome" && (
@@ -328,7 +306,7 @@ const Calculator = () => {
                         if (model.supported) {
                           setTimeout(goNext, 300);
                         } else {
-                          setTimeout(() => { setDirection(1); setStep("unsupported"); }, 300);
+                          setTimeout(() => setStep("unsupported"), 300);
                         }
                       }}
                     />
@@ -356,7 +334,6 @@ const Calculator = () => {
                   <button
                     onClick={() => {
                       setSelectedModel("");
-                      setDirection(-1);
                       setStep("model");
                     }}
                     className="w-full h-14 bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-all text-lg font-semibold rounded-2xl shadow-lg text-primary-foreground flex items-center justify-center gap-2"
@@ -558,8 +535,7 @@ const Calculator = () => {
               </div>
             )}
 
-              </motion.div>
-            </AnimatePresence>
+            </div>
           </div>
         </div>
       </div>
