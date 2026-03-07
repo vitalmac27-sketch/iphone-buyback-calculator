@@ -180,8 +180,8 @@ const Calculator = () => {
     >
       <div className="flex items-center justify-between">
         <div>
-          <p className="font-semibold text-foreground">{label}</p>
-          {description && <p className="text-sm text-muted-foreground mt-1">{description}</p>}
+          <p className="font-semibold text-foreground text-base md:text-lg">{label}</p>
+          {description && <p className="text-sm md:text-base text-muted-foreground mt-1">{description}</p>}
         </div>
         {selected && <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0" />}
       </div>
