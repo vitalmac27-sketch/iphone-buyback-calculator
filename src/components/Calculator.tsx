@@ -306,7 +306,7 @@ const Calculator = () => {
                         if (model.supported) {
                           setTimeout(goNext, 300);
                         } else {
-                          setTimeout(() => { setDirection(1); setStep("unsupported"); }, 300);
+                          setTimeout(() => setStep("unsupported"), 300);
                         }
                       }}
                     />
