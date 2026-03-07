@@ -79,29 +79,16 @@ const Calculator = () => {
 
   const goNext = () => {
     const idx = STEPS_ORDER.indexOf(step);
-    if (idx < STEPS_ORDER.length - 1) {
-      setDirection(1);
-      setStep(STEPS_ORDER[idx + 1]);
-    }
+    if (idx < STEPS_ORDER.length - 1) setStep(STEPS_ORDER[idx + 1]);
   };
 
   const goBack = () => {
     if (step === "unsupported") {
-      setDirection(-1);
       setStep("model");
       return;
     }
     const idx = STEPS_ORDER.indexOf(step);
-    if (idx > 0) {
-      setDirection(-1);
-      setStep(STEPS_ORDER[idx - 1]);
-    }
-  };
-
-  const slideVariants = {
-    enter: (dir: number) => ({ x: dir > 0 ? 80 : -80, opacity: 0 }),
-    center: { x: 0, opacity: 1 },
-    exit: (dir: number) => ({ x: dir > 0 ? -80 : 80, opacity: 0 }),
+    if (idx > 0) setStep(STEPS_ORDER[idx - 1]);
   };
 
   const calculatePrice = () => {
