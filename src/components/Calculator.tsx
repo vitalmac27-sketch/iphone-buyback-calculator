@@ -277,10 +277,19 @@ const Calculator = () => {
             )}
 
             <AnimatePresence mode="wait" custom={direction}>
+              <motion.div
+                key={step}
+                custom={direction}
+                variants={slideVariants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+              >
 
             {/* Welcome */}
             {step === "welcome" && (
-              <div className="text-center space-y-8 animate-fade-in-up">
+              <div className="text-center space-y-8">
                 <div className="flex flex-col items-center space-y-6">
                   <div className="relative">
                     <div className="absolute inset-0 bg-primary/20 blur-3xl rounded-full animate-pulse" />
@@ -306,7 +315,7 @@ const Calculator = () => {
 
             {/* Model selection */}
             {step === "model" && (
-              <div className="animate-fade-in-up">
+              <div>
                 <StepHeader title="Выберите модель 📱" subtitle="Какой у вас iPhone?" />
                 <div className="space-y-2 max-h-[50vh] overflow-y-auto pr-1">
                   {phoneModels.map((model) => (
@@ -319,7 +328,7 @@ const Calculator = () => {
                         if (model.supported) {
                           setTimeout(goNext, 300);
                         } else {
-                          setTimeout(() => setStep("unsupported"), 300);
+                          setTimeout(() => { setDirection(1); setStep("unsupported"); }, 300);
                         }
                       }}
                     />
@@ -331,7 +340,7 @@ const Calculator = () => {
 
             {/* Unsupported model */}
             {step === "unsupported" && (
-              <div className="text-center space-y-8 animate-fade-in-up">
+              <div className="text-center space-y-8">
                 <div className="space-y-4">
                   <div className="w-20 h-20 bg-destructive/20 rounded-full flex items-center justify-center mx-auto">
                     <AlertTriangle className="w-10 h-10 text-destructive" />
@@ -347,6 +356,7 @@ const Calculator = () => {
                   <button
                     onClick={() => {
                       setSelectedModel("");
+                      setDirection(-1);
                       setStep("model");
                     }}
                     className="w-full h-14 bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-all text-lg font-semibold rounded-2xl shadow-lg text-primary-foreground flex items-center justify-center gap-2"
@@ -367,7 +377,7 @@ const Calculator = () => {
 
             {/* Storage */}
             {step === "storage" && (
-              <div className="animate-fade-in-up">
+              <div>
                 <StepHeader title="Объём памяти 💾" subtitle="Сколько гигабайт у вашего iPhone?" />
                 <div className="space-y-3">
                   {filteredStorageOptions.map((opt) => (
@@ -388,7 +398,7 @@ const Calculator = () => {
 
             {/* Color */}
             {step === "color" && (
-              <div className="animate-fade-in-up">
+              <div>
                 <StepHeader title="Цвет 🎨" subtitle="Какого цвета ваш iPhone?" />
                 <div className="space-y-3">
                   {availableColors.map((color) => (
@@ -436,7 +446,7 @@ const Calculator = () => {
 
             {/* Battery */}
             {step === "battery" && (
-              <div className="animate-fade-in-up">
+              <div>
                 <StepHeader title="Состояние батареи 🔋" subtitle="Ёмкость аккумулятора (Настройки → Аккумулятор)" />
                 <div className="grid grid-cols-4 gap-2">
                   {Array.from({ length: 16 }, (_, i) => 100 - i).map((pct) => (
@@ -471,12 +481,17 @@ const Calculator = () => {
 
             {/* Result */}
             {step === "result" && (
-              <div className="animate-fade-in-up">
+              <div>
                 <div className="text-center space-y-8">
                 <div className="space-y-4">
-                  <div className="w-20 h-20 bg-primary/20 rounded-full flex items-center justify-center mx-auto">
+                  <motion.div
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ type: "spring", stiffness: 200, damping: 15, delay: 0.2 }}
+                    className="w-20 h-20 bg-primary/20 rounded-full flex items-center justify-center mx-auto"
+                  >
                     <Phone className="w-10 h-10 text-primary" />
-                  </div>
+                  </motion.div>
                   <h2 className="text-2xl md:text-3xl font-bold text-foreground">
                     Предварительная оценка
                   </h2>
@@ -486,12 +501,17 @@ const Calculator = () => {
                     <p>Батарея: {batteryPercent}% · {complectnessOptions.find((c) => c.id === selectedCompleteness)?.label}</p>
                   </div>
                 </div>
-                <div className="py-6">
+                <motion.div
+                  initial={{ scale: 0.8, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ delay: 0.4, duration: 0.5, ease: "easeOut" }}
+                  className="py-6"
+                >
                   <p className="text-sm text-muted-foreground mb-2">Ориентировочная стоимость выкупа</p>
                   <p className="text-5xl md:text-6xl font-extrabold text-primary">
                     {calculatePrice().toLocaleString("ru-RU")} ₽
                   </p>
-                </div>
+                </motion.div>
                 <div className="rounded-xl p-4 text-sm text-muted-foreground border" style={{ background: 'hsla(220, 20%, 16%, 0.4)', borderColor: 'var(--glass-border)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)' }}>
                   Точная стоимость определяется после осмотра устройства специалистом. Свяжитесь с нами для записи на оценку.
                 </div>
@@ -537,6 +557,9 @@ const Calculator = () => {
               </div>
               </div>
             )}
+
+              </motion.div>
+            </AnimatePresence>
           </div>
         </div>
       </div>
