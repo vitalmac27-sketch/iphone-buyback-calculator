@@ -254,21 +254,29 @@ const Calculator = () => {
             {/* Progress bar */}
             {progressStep > 0 && step !== "result" && step !== "unsupported" && (
               <div className="mb-8">
-                <div className="flex items-center justify-end mb-2">
-                  <span className="text-sm text-muted-foreground">
-                    {progressStep} из {totalSteps}
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex gap-1.5">
+                    {Array.from({ length: totalSteps }, (_, i) => (
+                      <div
+                        key={i}
+                        className="h-1.5 rounded-full transition-all duration-500"
+                        style={{
+                          width: i + 1 === progressStep ? '2rem' : '0.75rem',
+                          background: i + 1 <= progressStep
+                            ? 'hsl(var(--primary))'
+                            : 'hsla(220, 20%, 30%, 0.5)',
+                        }}
+                      />
+                    ))}
+                  </div>
+                  <span className="text-xs text-muted-foreground font-medium">
+                    {progressStep}/{totalSteps}
                   </span>
-                </div>
-                <div className="w-full rounded-full h-1.5" style={{ background: 'hsla(220, 20%, 20%, 0.5)' }}>
-                  <div
-                    className="bg-primary rounded-full h-1.5 transition-all duration-500"
-                    style={{ width: `${(progressStep / totalSteps) * 100}%` }}
-                  />
                 </div>
               </div>
             )}
 
-            {/* Remove top back button - using bottom buttons instead */}
+            <AnimatePresence mode="wait" custom={direction}>
 
             {/* Welcome */}
             {step === "welcome" && (
