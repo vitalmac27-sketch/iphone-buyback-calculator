@@ -180,8 +180,8 @@ const Calculator = () => {
     >
       <div className="flex items-center justify-between">
         <div>
-          <p className="font-semibold text-foreground">{label}</p>
-          {description && <p className="text-sm text-muted-foreground mt-1">{description}</p>}
+          <p className="font-semibold text-foreground text-base md:text-lg">{label}</p>
+          {description && <p className="text-sm md:text-base text-muted-foreground mt-1">{description}</p>}
         </div>
         {selected && <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0" />}
       </div>
@@ -402,7 +402,7 @@ const Calculator = () => {
                             className="w-8 h-8 rounded-full border border-white/20"
                             style={{ backgroundColor: color.hex }}
                           />
-                          <p className="font-semibold text-foreground">{color.label}</p>
+                          <p className="font-semibold text-foreground text-base md:text-lg">{color.label}</p>
                         </div>
                         {selectedColor === color.id && <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0" />}
                       </div>
