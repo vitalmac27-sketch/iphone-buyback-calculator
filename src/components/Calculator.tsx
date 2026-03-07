@@ -42,7 +42,7 @@ const getBatteryMultiplier = (percent: number): number => {
 
 const Calculator = () => {
   const [step, setStep] = useState<Step>("welcome");
-  const [direction, setDirection] = useState(1);
+  
   const [selectedModel, setSelectedModel] = useState("");
   const [selectedStorage, setSelectedStorage] = useState("");
   const [selectedColor, setSelectedColor] = useState("");
