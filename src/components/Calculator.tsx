@@ -297,6 +297,7 @@ const Calculator = () => {
                       onClick={() => {
                         if (device.available) {
                           setDeviceCategory(device.id);
+                          setStep("model");
                         }
                       }}
                       className={`relative p-5 rounded-2xl border transition-all duration-300 flex flex-col items-center gap-3 ${
