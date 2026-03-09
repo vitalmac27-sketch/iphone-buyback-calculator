@@ -242,7 +242,7 @@ const Calculator = () => {
         <div className="w-full max-w-2xl rounded-2xl shadow-elevated border overflow-hidden" style={{ background: 'var(--glass-bg)', borderColor: 'var(--glass-border)', backdropFilter: 'blur(24px)', WebkitBackdropFilter: 'blur(24px)' }}>
           <div className="p-6 md:p-12 max-h-[calc(100vh-80px)] overflow-y-auto overflow-x-hidden">
             {/* Progress bar */}
-            {progressStep > 0 && step !== "result" && step !== "unsupported" && (
+            {progressStep > 0 && step !== "result" && step !== "unsupported" && deviceCategory !== "macbook" && (
               <div className="mb-8">
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex gap-1.5">
@@ -297,6 +297,7 @@ const Calculator = () => {
                       onClick={() => {
                         if (device.available) {
                           setDeviceCategory(device.id);
+                          setStep("model");
                         }
                       }}
                       className={`relative p-5 rounded-2xl border transition-all duration-300 flex flex-col items-center gap-3 ${
@@ -325,64 +326,13 @@ const Calculator = () => {
               </div>
             )}
 
-            {/* MacBook welcome */}
-            {step === "welcome" && deviceCategory === "macbook" && (
-              <div className="text-center space-y-8">
-                <div className="space-y-4">
-                  <h2 className="text-3xl md:text-4xl font-bold text-foreground leading-tight">
-                    Узнай стоимость<br />своего MacBook 💻
-                  </h2>
-                  <p className="text-lg text-muted-foreground max-w-md mx-auto leading-relaxed">
-                    Ответь на несколько вопросов и получи предварительную оценку за минуту
-                  </p>
-                </div>
-                <button
-                  onClick={() => setStep("model")}
-                  className="w-full h-16 bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-all text-lg font-semibold rounded-2xl shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] text-primary-foreground flex items-center justify-center gap-2"
-                >
-                  Начать оценку <ChevronRight className="w-5 h-5" />
-                </button>
-                <button
-                  onClick={() => setDeviceCategory(null)}
-                  className="w-full h-12 border border-[var(--glass-border)] hover:border-primary/30 transition-all text-sm font-medium rounded-xl text-muted-foreground hover:text-foreground flex items-center justify-center gap-2"
-                  style={{ background: 'hsla(220, 20%, 16%, 0.4)', backdropFilter: 'blur(12px)' }}
-                >
-                  <ArrowLeft className="w-4 h-4" /> Назад к выбору устройства
-                </button>
-              </div>
-            )}
 
             {/* MacBook calculator */}
             {deviceCategory === "macbook" && step === "model" && (
               <MacbookCalculator
-                onBack={() => { setStep("welcome"); }}
+                onBack={() => { setStep("welcome"); setDeviceCategory(null); }}
                 onRestart={restart}
               />
-            )}
-            {step === "welcome" && deviceCategory === "iphone" && (
-              <div className="text-center space-y-8">
-                <div className="space-y-4">
-                  <h2 className="text-3xl md:text-4xl font-bold text-foreground leading-tight">
-                    Узнай стоимость<br />своего iPhone 👋
-                  </h2>
-                  <p className="text-lg text-muted-foreground max-w-md mx-auto leading-relaxed">
-                    Ответь на несколько вопросов и получи предварительную оценку за минуту
-                  </p>
-                </div>
-                <button
-                  onClick={goNext}
-                  className="w-full h-16 bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-all text-lg font-semibold rounded-2xl shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] text-primary-foreground flex items-center justify-center gap-2"
-                >
-                  Начать оценку <ChevronRight className="w-5 h-5" />
-                </button>
-                <button
-                  onClick={() => setDeviceCategory(null)}
-                  className="w-full h-12 border border-[var(--glass-border)] hover:border-primary/30 transition-all text-sm font-medium rounded-xl text-muted-foreground hover:text-foreground flex items-center justify-center gap-2"
-                  style={{ background: 'hsla(220, 20%, 16%, 0.4)', backdropFilter: 'blur(12px)' }}
-                >
-                  <ArrowLeft className="w-4 h-4" /> Назад к выбору устройства
-                </button>
-              </div>
             )}
 
             {/* Model selection */}
