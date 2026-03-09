@@ -42,8 +42,8 @@ const getBatteryMultiplier = (percent: number): number => {
 };
 
 const Calculator = () => {
+  const [deviceCategory, setDeviceCategory] = useState<DeviceCategory>(null);
   const [step, setStep] = useState<Step>("welcome");
-  
   const [selectedModel, setSelectedModel] = useState("");
   const [selectedStorage, setSelectedStorage] = useState("");
   const [selectedColor, setSelectedColor] = useState("");
