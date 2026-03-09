@@ -120,6 +120,7 @@ const Calculator = () => {
 
   const restart = () => {
     setStep("welcome");
+    setDeviceCategory(null);
     setSelectedModel("");
     setSelectedStorage("");
     setSelectedColor("");
