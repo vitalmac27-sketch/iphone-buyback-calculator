@@ -288,7 +288,7 @@ const Calculator = () => {
                 <div className="grid grid-cols-2 gap-3">
                   {([
                     { id: "iphone" as const, label: "iPhone", icon: Smartphone, available: true },
-                    { id: "macbook" as const, label: "MacBook", icon: Laptop, available: false },
+                    { id: "macbook" as const, label: "MacBook", icon: Laptop, available: true },
                     { id: "ipad" as const, label: "iPad", icon: Tablet, available: false },
                     { id: "applewatch" as const, label: "Apple Watch", icon: Watch, available: false },
                   ]).map((device) => (
