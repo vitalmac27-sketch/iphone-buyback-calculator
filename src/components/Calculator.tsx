@@ -13,6 +13,7 @@ import {
   type ConditionOption,
 } from "@/data/calculatorData";
 
+type DeviceCategory = "iphone" | "macbook" | "ipad" | "applewatch" | null;
 type Step = "welcome" | "model" | "unsupported" | "storage" | "color" | "battery" | "screen" | "condition" | "completeness" | "result";
 
 const STEPS_ORDER_WITH_COLOR: Step[] = ["welcome", "model", "storage", "color", "battery", "screen", "condition", "completeness", "result"];
