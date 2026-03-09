@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { ChevronRight, ArrowLeft, Phone, CheckCircle2, AlertTriangle } from "lucide-react";
+import { ChevronRight, ArrowLeft, Phone, CheckCircle2, AlertTriangle, Smartphone, Laptop, Tablet, Watch } from "lucide-react";
 import { motion } from "framer-motion";
 import logo from "@/assets/logo.jpg";
 import {
@@ -13,6 +13,7 @@ import {
   type ConditionOption,
 } from "@/data/calculatorData";
 
+type DeviceCategory = "iphone" | "macbook" | "ipad" | "applewatch" | null;
 type Step = "welcome" | "model" | "unsupported" | "storage" | "color" | "battery" | "screen" | "condition" | "completeness" | "result";
 
 const STEPS_ORDER_WITH_COLOR: Step[] = ["welcome", "model", "storage", "color", "battery", "screen", "condition", "completeness", "result"];
@@ -41,8 +42,8 @@ const getBatteryMultiplier = (percent: number): number => {
 };
 
 const Calculator = () => {
+  const [deviceCategory, setDeviceCategory] = useState<DeviceCategory>(null);
   const [step, setStep] = useState<Step>("welcome");
-  
   const [selectedModel, setSelectedModel] = useState("");
   const [selectedStorage, setSelectedStorage] = useState("");
   const [selectedColor, setSelectedColor] = useState("");
@@ -119,6 +120,7 @@ const Calculator = () => {
 
   const restart = () => {
     setStep("welcome");
+    setDeviceCategory(null);
     setSelectedModel("");
     setSelectedStorage("");
     setSelectedColor("");
@@ -266,7 +268,7 @@ const Calculator = () => {
             <div className="animate-fade-in-up">
 
             {/* Welcome */}
-            {step === "welcome" && (
+            {step === "welcome" && !deviceCategory && (
               <div className="text-center space-y-8">
                 <div className="flex flex-col items-center space-y-6">
                   <div className="relative">
@@ -274,6 +276,57 @@ const Calculator = () => {
                     <img src={logo} alt="Скупка Айфонов" className="relative w-full max-w-md h-auto object-contain rounded-2xl" />
                   </div>
                 </div>
+                <div className="space-y-4">
+                  <h2 className="text-3xl md:text-4xl font-bold text-foreground leading-tight">
+                    Оцени своё устройство 👋
+                  </h2>
+                  <p className="text-lg text-muted-foreground max-w-md mx-auto leading-relaxed">
+                    Выбери категорию устройства для оценки
+                  </p>
+                </div>
+                <div className="grid grid-cols-2 gap-3">
+                  {([
+                    { id: "iphone" as const, label: "iPhone", icon: Smartphone, available: true },
+                    { id: "macbook" as const, label: "MacBook", icon: Laptop, available: false },
+                    { id: "ipad" as const, label: "iPad", icon: Tablet, available: false },
+                    { id: "applewatch" as const, label: "Apple Watch", icon: Watch, available: false },
+                  ]).map((device) => (
+                    <button
+                      key={device.id}
+                      onClick={() => {
+                        if (device.available) {
+                          setDeviceCategory(device.id);
+                        }
+                      }}
+                      className={`relative p-5 rounded-2xl border transition-all duration-300 flex flex-col items-center gap-3 ${
+                        device.available
+                          ? "border-[var(--glass-border)] hover:border-primary/50 hover:scale-[1.03] active:scale-[0.97] cursor-pointer"
+                          : "border-[var(--glass-border)] opacity-50 cursor-not-allowed"
+                      }`}
+                      style={{
+                        background: 'hsla(220, 20%, 16%, 0.4)',
+                        backdropFilter: 'blur(12px)',
+                        WebkitBackdropFilter: 'blur(12px)',
+                      }}
+                    >
+                      <device.icon className={`w-10 h-10 ${device.available ? 'text-primary' : 'text-muted-foreground'}`} />
+                      <span className={`font-semibold text-lg ${device.available ? 'text-foreground' : 'text-muted-foreground'}`}>
+                        {device.label}
+                      </span>
+                      {!device.available && (
+                        <span className="absolute top-2 right-2 text-[10px] font-medium px-2 py-0.5 rounded-full bg-muted text-muted-foreground">
+                          Скоро
+                        </span>
+                      )}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* iPhone welcome */}
+            {step === "welcome" && deviceCategory === "iphone" && (
+              <div className="text-center space-y-8">
                 <div className="space-y-4">
                   <h2 className="text-3xl md:text-4xl font-bold text-foreground leading-tight">
                     Узнай стоимость<br />своего iPhone 👋
@@ -287,6 +340,13 @@ const Calculator = () => {
                   className="w-full h-16 bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-all text-lg font-semibold rounded-2xl shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] text-primary-foreground flex items-center justify-center gap-2"
                 >
                   Начать оценку <ChevronRight className="w-5 h-5" />
+                </button>
+                <button
+                  onClick={() => setDeviceCategory(null)}
+                  className="w-full h-12 border border-[var(--glass-border)] hover:border-primary/30 transition-all text-sm font-medium rounded-xl text-muted-foreground hover:text-foreground flex items-center justify-center gap-2"
+                  style={{ background: 'hsla(220, 20%, 16%, 0.4)', backdropFilter: 'blur(12px)' }}
+                >
+                  <ArrowLeft className="w-4 h-4" /> Назад к выбору устройства
                 </button>
               </div>
             )}
@@ -528,7 +588,7 @@ const Calculator = () => {
                     className="w-full h-14 border border-[var(--glass-border)] hover:border-primary/30 transition-all text-lg font-semibold rounded-2xl text-foreground flex items-center justify-center"
                     style={{ background: 'hsla(220, 20%, 16%, 0.4)', backdropFilter: 'blur(12px)' }}
                   >
-                    Оценить другой iPhone
+                    Оценить другое устройство
                   </button>
                 </div>
               </div>
