@@ -21,9 +21,17 @@ export const macbookModels: MacbookModel[] = [
   { id: "air_m2_13", name: 'MacBook Air M2 13"', chip: "M2", series: "air", sizes: ['13.6"'], ramOptions: [8, 16, 24], ssdOptions: [256, 512, 1024, 2048], basePrice: 45000 },
   { id: "air_m1", name: 'MacBook Air M1 13"', chip: "M1", series: "air", sizes: ['13"'], ramOptions: [8, 16], ssdOptions: [256, 512, 1024, 2048], basePrice: 32000 },
 
-  // MacBook Pro 13"
-  { id: "pro13_m2", name: 'MacBook Pro 13" M2', chip: "M2", series: "pro", sizes: ['13"'], ramOptions: [8, 16, 24], ssdOptions: [256, 512, 1024, 2048], basePrice: 50000 },
-  { id: "pro13_m1", name: 'MacBook Pro 13" M1', chip: "M1", series: "pro", sizes: ['13"'], ramOptions: [8, 16], ssdOptions: [256, 512, 1024, 2048], basePrice: 35000 },
+  // MacBook Pro 16"
+  { id: "pro16_m5_max", name: 'MacBook Pro 16" M5 Max', chip: "M5 Max", series: "pro", sizes: ['16"'], ramOptions: [36, 48, 64, 96, 128], ssdOptions: [2048, 4096, 8192], basePrice: 250000 },
+  { id: "pro16_m5_pro", name: 'MacBook Pro 16" M5 Pro', chip: "M5 Pro", series: "pro", sizes: ['16"'], ramOptions: [24, 36, 48, 64], ssdOptions: [1024, 2048, 4096, 8192], basePrice: 170000 },
+  { id: "pro16_m4_max", name: 'MacBook Pro 16" M4 Max', chip: "M4 Max", series: "pro", sizes: ['16"'], ramOptions: [36, 48, 64, 128], ssdOptions: [1024, 2048, 4096, 8192], basePrice: 230000 },
+  { id: "pro16_m4_pro", name: 'MacBook Pro 16" M4 Pro', chip: "M4 Pro", series: "pro", sizes: ['16"'], ramOptions: [24, 36, 48], ssdOptions: [512, 1024, 2048, 4096], basePrice: 150000 },
+  { id: "pro16_m3_max", name: 'MacBook Pro 16" M3 Max', chip: "M3 Max", series: "pro", sizes: ['16"'], ramOptions: [36, 48, 64, 128], ssdOptions: [1024, 2048, 4096, 8192], basePrice: 200000 },
+  { id: "pro16_m3_pro", name: 'MacBook Pro 16" M3 Pro', chip: "M3 Pro", series: "pro", sizes: ['16"'], ramOptions: [18, 36], ssdOptions: [512, 1024, 2048, 4096], basePrice: 130000 },
+  { id: "pro16_m2_max", name: 'MacBook Pro 16" M2 Max', chip: "M2 Max", series: "pro", sizes: ['16"'], ramOptions: [32, 64, 96], ssdOptions: [1024, 2048, 4096, 8192], basePrice: 160000 },
+  { id: "pro16_m2_pro", name: 'MacBook Pro 16" M2 Pro', chip: "M2 Pro", series: "pro", sizes: ['16"'], ramOptions: [16, 32], ssdOptions: [512, 1024, 2048, 4096, 8192], basePrice: 110000 },
+  { id: "pro16_m1_max", name: 'MacBook Pro 16" M1 Max', chip: "M1 Max", series: "pro", sizes: ['16"'], ramOptions: [32, 64], ssdOptions: [1024, 2048, 4096, 8192], basePrice: 120000 },
+  { id: "pro16_m1_pro", name: 'MacBook Pro 16" M1 Pro', chip: "M1 Pro", series: "pro", sizes: ['16"'], ramOptions: [16, 32], ssdOptions: [512, 1024, 2048, 4096, 8192], basePrice: 90000 },
 
   // MacBook Pro 14"
   { id: "pro14_m5_max", name: 'MacBook Pro 14" M5 Max', chip: "M5 Max", series: "pro", sizes: ['14"'], ramOptions: [36, 48, 64, 96, 128], ssdOptions: [2048, 4096, 8192], basePrice: 220000 },
@@ -40,17 +48,9 @@ export const macbookModels: MacbookModel[] = [
   { id: "pro14_m1_max", name: 'MacBook Pro 14" M1 Max', chip: "M1 Max", series: "pro", sizes: ['14"'], ramOptions: [32, 64], ssdOptions: [512, 1024, 2048, 4096, 8192], basePrice: 110000 },
   { id: "pro14_m1_pro", name: 'MacBook Pro 14" M1 Pro', chip: "M1 Pro", series: "pro", sizes: ['14"'], ramOptions: [16, 32], ssdOptions: [512, 1024, 2048, 4096, 8192], basePrice: 80000 },
 
-  // MacBook Pro 16"
-  { id: "pro16_m5_max", name: 'MacBook Pro 16" M5 Max', chip: "M5 Max", series: "pro", sizes: ['16"'], ramOptions: [36, 48, 64, 96, 128], ssdOptions: [2048, 4096, 8192], basePrice: 250000 },
-  { id: "pro16_m5_pro", name: 'MacBook Pro 16" M5 Pro', chip: "M5 Pro", series: "pro", sizes: ['16"'], ramOptions: [24, 36, 48, 64], ssdOptions: [1024, 2048, 4096, 8192], basePrice: 170000 },
-  { id: "pro16_m4_max", name: 'MacBook Pro 16" M4 Max', chip: "M4 Max", series: "pro", sizes: ['16"'], ramOptions: [36, 48, 64, 128], ssdOptions: [1024, 2048, 4096, 8192], basePrice: 230000 },
-  { id: "pro16_m4_pro", name: 'MacBook Pro 16" M4 Pro', chip: "M4 Pro", series: "pro", sizes: ['16"'], ramOptions: [24, 36, 48], ssdOptions: [512, 1024, 2048, 4096], basePrice: 150000 },
-  { id: "pro16_m3_max", name: 'MacBook Pro 16" M3 Max', chip: "M3 Max", series: "pro", sizes: ['16"'], ramOptions: [36, 48, 64, 128], ssdOptions: [1024, 2048, 4096, 8192], basePrice: 200000 },
-  { id: "pro16_m3_pro", name: 'MacBook Pro 16" M3 Pro', chip: "M3 Pro", series: "pro", sizes: ['16"'], ramOptions: [18, 36], ssdOptions: [512, 1024, 2048, 4096], basePrice: 130000 },
-  { id: "pro16_m2_max", name: 'MacBook Pro 16" M2 Max', chip: "M2 Max", series: "pro", sizes: ['16"'], ramOptions: [32, 64, 96], ssdOptions: [1024, 2048, 4096, 8192], basePrice: 160000 },
-  { id: "pro16_m2_pro", name: 'MacBook Pro 16" M2 Pro', chip: "M2 Pro", series: "pro", sizes: ['16"'], ramOptions: [16, 32], ssdOptions: [512, 1024, 2048, 4096, 8192], basePrice: 110000 },
-  { id: "pro16_m1_max", name: 'MacBook Pro 16" M1 Max', chip: "M1 Max", series: "pro", sizes: ['16"'], ramOptions: [32, 64], ssdOptions: [1024, 2048, 4096, 8192], basePrice: 120000 },
-  { id: "pro16_m1_pro", name: 'MacBook Pro 16" M1 Pro', chip: "M1 Pro", series: "pro", sizes: ['16"'], ramOptions: [16, 32], ssdOptions: [512, 1024, 2048, 4096, 8192], basePrice: 90000 },
+  // MacBook Pro 13"
+  { id: "pro13_m2", name: 'MacBook Pro 13" M2', chip: "M2", series: "pro", sizes: ['13"'], ramOptions: [8, 16, 24], ssdOptions: [256, 512, 1024, 2048], basePrice: 50000 },
+  { id: "pro13_m1", name: 'MacBook Pro 13" M1', chip: "M1", series: "pro", sizes: ['13"'], ramOptions: [8, 16], ssdOptions: [256, 512, 1024, 2048], basePrice: 35000 },
 ];
 
 export const formatSsd = (gb: number): string => {
