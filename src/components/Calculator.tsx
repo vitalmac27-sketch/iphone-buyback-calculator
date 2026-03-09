@@ -386,7 +386,7 @@ const Calculator = () => {
             )}
 
             {/* Model selection */}
-            {step === "model" && (
+            {step === "model" && deviceCategory === "iphone" && (
               <div>
                 <StepHeader title="Выберите модель 📱" subtitle="Какой у вас iPhone?" />
                 <div className="space-y-2 max-h-[50vh] overflow-y-auto pr-1">
