@@ -588,7 +588,7 @@ const Calculator = () => {
                     className="w-full h-14 border border-[var(--glass-border)] hover:border-primary/30 transition-all text-lg font-semibold rounded-2xl text-foreground flex items-center justify-center"
                     style={{ background: 'hsla(220, 20%, 16%, 0.4)', backdropFilter: 'blur(12px)' }}
                   >
-                    Оценить другой iPhone
+                    Оценить другое устройство
                   </button>
                 </div>
               </div>
