@@ -325,7 +325,40 @@ const Calculator = () => {
               </div>
             )}
 
-            {/* iPhone welcome */}
+            {/* MacBook welcome */}
+            {step === "welcome" && deviceCategory === "macbook" && (
+              <div className="text-center space-y-8">
+                <div className="space-y-4">
+                  <h2 className="text-3xl md:text-4xl font-bold text-foreground leading-tight">
+                    Узнай стоимость<br />своего MacBook 💻
+                  </h2>
+                  <p className="text-lg text-muted-foreground max-w-md mx-auto leading-relaxed">
+                    Ответь на несколько вопросов и получи предварительную оценку за минуту
+                  </p>
+                </div>
+                <button
+                  onClick={() => setStep("model")}
+                  className="w-full h-16 bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-all text-lg font-semibold rounded-2xl shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] text-primary-foreground flex items-center justify-center gap-2"
+                >
+                  Начать оценку <ChevronRight className="w-5 h-5" />
+                </button>
+                <button
+                  onClick={() => setDeviceCategory(null)}
+                  className="w-full h-12 border border-[var(--glass-border)] hover:border-primary/30 transition-all text-sm font-medium rounded-xl text-muted-foreground hover:text-foreground flex items-center justify-center gap-2"
+                  style={{ background: 'hsla(220, 20%, 16%, 0.4)', backdropFilter: 'blur(12px)' }}
+                >
+                  <ArrowLeft className="w-4 h-4" /> Назад к выбору устройства
+                </button>
+              </div>
+            )}
+
+            {/* MacBook calculator */}
+            {deviceCategory === "macbook" && step === "model" && (
+              <MacbookCalculator
+                onBack={() => { setStep("welcome"); }}
+                onRestart={restart}
+              />
+            )}
             {step === "welcome" && deviceCategory === "iphone" && (
               <div className="text-center space-y-8">
                 <div className="space-y-4">
