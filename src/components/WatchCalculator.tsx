@@ -62,10 +62,11 @@ const WatchCalculator = ({ onBack, onRestart }: WatchCalculatorProps) => {
   const calculatePrice = () => {
     if (!selectedModel) return 0;
     const sizeMult = getSizeMultiplier(selectedSize);
+    const batteryMult = getBatteryMultiplier(batteryPercent);
     const screenMult = watchScreenOptions.find((s) => s.id === selectedScreen)?.multiplier ?? 1;
     const bodyMult = watchBodyOptions.find((b) => b.id === selectedBody)?.multiplier ?? 1;
     const complMult = getWatchCompletenessMultiplier(selectedCompleteness);
-    const price = selectedModel.basePrice * sizeMult * screenMult * bodyMult * complMult;
+    const price = selectedModel.basePrice * sizeMult * batteryMult * screenMult * bodyMult * complMult;
     return Math.ceil(price / 500) * 500;
   };
 
