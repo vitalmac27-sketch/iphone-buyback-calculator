@@ -13,9 +13,18 @@ import {
   type CompletenessItem,
 } from "@/data/ipadData";
 
-type IpadStep = "model" | "ssd" | "screen" | "body" | "completeness" | "result";
+type IpadStep = "model" | "ssd" | "battery" | "screen" | "body" | "completeness" | "result";
 
-const IPAD_STEPS: IpadStep[] = ["model", "ssd", "screen", "body", "completeness", "result"];
+const IPAD_STEPS: IpadStep[] = ["model", "ssd", "battery", "screen", "body", "completeness", "result"];
+
+const getBatteryMultiplier = (percent: number): number => {
+  const map: Record<number, number> = {
+    100: 0.93, 99: 0.91, 98: 0.89, 97: 0.87, 96: 0.85,
+    95: 0.83, 94: 0.81, 93: 0.79, 92: 0.77, 91: 0.75,
+    90: 0.73, 89: 0.71, 88: 0.69, 87: 0.67, 86: 0.66, 85: 0.65,
+  };
+  return map[percent] ?? 0.65;
+};
 
 interface IpadCalculatorProps {
   onBack: () => void;
@@ -28,6 +37,7 @@ const IpadCalculator = ({ onBack, onRestart }: IpadCalculatorProps) => {
   const [selectedSsd, setSelectedSsd] = useState<number>(0);
   const [selectedScreen, setSelectedScreen] = useState("");
   const [selectedBody, setSelectedBody] = useState("");
+  const [batteryPercent, setBatteryPercent] = useState(100);
   const [selectedCompleteness, setSelectedCompleteness] = useState<CompletenessItem[]>([]);
 
   const currentIndex = IPAD_STEPS.indexOf(step);
@@ -53,10 +63,11 @@ const IpadCalculator = ({ onBack, onRestart }: IpadCalculatorProps) => {
   const calculatePrice = () => {
     if (!selectedModel) return 0;
     const ssdMult = getSsdMultiplier(selectedSsd, selectedModel.ssdOptions);
+    const batteryMult = getBatteryMultiplier(batteryPercent);
     const screenMult = ipadScreenOptions.find((s) => s.id === selectedScreen)?.multiplier ?? 1;
     const bodyMult = ipadBodyOptions.find((b) => b.id === selectedBody)?.multiplier ?? 1;
     const complMult = getCompletenessMultiplier(selectedCompleteness);
-    const price = selectedModel.basePrice * ssdMult * screenMult * bodyMult * complMult;
+    const price = selectedModel.basePrice * ssdMult * batteryMult * screenMult * bodyMult * complMult;
     return Math.ceil(price / 500) * 500;
   };
 
@@ -65,7 +76,7 @@ const IpadCalculator = ({ onBack, onRestart }: IpadCalculatorProps) => {
     const body = ipadBodyOptions.find((b) => b.id === selectedBody);
     const complLabels = selectedCompleteness.map((id) => completenessItems.find((c) => c.id === id)?.label).filter(Boolean).join(", ");
     const price = calculatePrice();
-    return `Здравствуйте! Хочу продать iPad.\n\nМодель: ${selectedModel?.name ?? ""}\nПамять: ${formatSsd(selectedSsd)}\nЭкран: ${screen?.label ?? ""}\nКорпус: ${body?.label ?? ""}\nКомплектация: ${complLabels || "Только iPad"}\n\nПредварительная оценка: ${price.toLocaleString("ru-RU")} ₽`;
+    return `Здравствуйте! Хочу продать iPad.\n\nМодель: ${selectedModel?.name ?? ""}\nПамять: ${formatSsd(selectedSsd)}\nБатарея: ${batteryPercent}%\nЭкран: ${screen?.label ?? ""}\nКорпус: ${body?.label ?? ""}\nКомплектация: ${complLabels || "Только iPad"}\n\nПредварительная оценка: ${price.toLocaleString("ru-RU")} ₽`;
   };
 
   const whatsappUrl = () => `https://wa.me/89503185530?text=${encodeURIComponent(buildContactMessage())}`;
@@ -214,6 +225,37 @@ const IpadCalculator = ({ onBack, onRestart }: IpadCalculatorProps) => {
           </div>
         )}
 
+        {/* Battery */}
+        {step === "battery" && (
+          <div>
+            <StepHeader title="Состояние батареи 🔋" subtitle="Ёмкость аккумулятора (Настройки → Аккумулятор)" />
+            <div className="grid grid-cols-4 gap-2">
+              {Array.from({ length: 16 }, (_, i) => 100 - i).map((pct) => (
+                <button
+                  key={pct}
+                  onClick={() => {
+                    setBatteryPercent(pct);
+                    setTimeout(goNext, 300);
+                  }}
+                  className={`h-14 rounded-xl border text-center font-semibold transition-all duration-300 ${
+                    batteryPercent === pct
+                      ? "border-primary/60 shadow-[0_0_20px_-4px_hsl(160,55%,45%,0.3)] text-primary"
+                      : "border-[var(--glass-border)] hover:border-primary/30 text-foreground"
+                  }`}
+                  style={{
+                    background: batteryPercent === pct ? 'var(--glass-highlight)' : 'hsla(220, 20%, 16%, 0.4)',
+                    backdropFilter: 'blur(12px)',
+                    WebkitBackdropFilter: 'blur(12px)',
+                  }}
+                >
+                  {pct}%
+                </button>
+              ))}
+            </div>
+            <BottomBackButton />
+          </div>
+        )}
+
         {/* Screen */}
         {step === "screen" && renderConditionStep("Состояние экрана 📺", "Есть ли дефекты на экране?", ipadScreenOptions, selectedScreen, setSelectedScreen)}
 
@@ -287,7 +329,7 @@ const IpadCalculator = ({ onBack, onRestart }: IpadCalculatorProps) => {
               </h2>
               <div className="space-y-1 text-sm text-muted-foreground">
                 <p>{selectedModel?.name} · {formatSsd(selectedSsd)}</p>
-                <p>Корпус: {ipadBodyOptions.find((b) => b.id === selectedBody)?.label} · Экран: {ipadScreenOptions.find((s) => s.id === selectedScreen)?.label}</p>
+                <p>Батарея: {batteryPercent}% · Корпус: {ipadBodyOptions.find((b) => b.id === selectedBody)?.label} · Экран: {ipadScreenOptions.find((s) => s.id === selectedScreen)?.label}</p>
                 <p>Комплектация: {selectedCompleteness.map((id) => completenessItems.find((c) => c.id === id)?.label).filter(Boolean).join(", ") || "Только iPad"}</p>
               </div>
             </div>

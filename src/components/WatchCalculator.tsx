@@ -12,9 +12,18 @@ import {
   type WatchCompletenessItem,
 } from "@/data/watchData";
 
-type WatchStep = "model" | "size" | "screen" | "body" | "completeness" | "result";
+type WatchStep = "model" | "size" | "battery" | "screen" | "body" | "completeness" | "result";
 
-const WATCH_STEPS: WatchStep[] = ["model", "size", "screen", "body", "completeness", "result"];
+const WATCH_STEPS: WatchStep[] = ["model", "size", "battery", "screen", "body", "completeness", "result"];
+
+const getBatteryMultiplier = (percent: number): number => {
+  const map: Record<number, number> = {
+    100: 0.93, 99: 0.91, 98: 0.89, 97: 0.87, 96: 0.85,
+    95: 0.83, 94: 0.81, 93: 0.79, 92: 0.77, 91: 0.75,
+    90: 0.73, 89: 0.71, 88: 0.69, 87: 0.67, 86: 0.66, 85: 0.65,
+  };
+  return map[percent] ?? 0.65;
+};
 
 interface WatchCalculatorProps {
   onBack: () => void;
@@ -25,6 +34,7 @@ const WatchCalculator = ({ onBack, onRestart }: WatchCalculatorProps) => {
   const [step, setStep] = useState<WatchStep>("model");
   const [selectedModelId, setSelectedModelId] = useState("");
   const [selectedSize, setSelectedSize] = useState("");
+  const [batteryPercent, setBatteryPercent] = useState(100);
   const [selectedScreen, setSelectedScreen] = useState("");
   const [selectedBody, setSelectedBody] = useState("");
   const [selectedCompleteness, setSelectedCompleteness] = useState<WatchCompletenessItem[]>([]);
@@ -52,10 +62,11 @@ const WatchCalculator = ({ onBack, onRestart }: WatchCalculatorProps) => {
   const calculatePrice = () => {
     if (!selectedModel) return 0;
     const sizeMult = getSizeMultiplier(selectedSize);
+    const batteryMult = getBatteryMultiplier(batteryPercent);
     const screenMult = watchScreenOptions.find((s) => s.id === selectedScreen)?.multiplier ?? 1;
     const bodyMult = watchBodyOptions.find((b) => b.id === selectedBody)?.multiplier ?? 1;
     const complMult = getWatchCompletenessMultiplier(selectedCompleteness);
-    const price = selectedModel.basePrice * sizeMult * screenMult * bodyMult * complMult;
+    const price = selectedModel.basePrice * sizeMult * batteryMult * screenMult * bodyMult * complMult;
     return Math.ceil(price / 500) * 500;
   };
 
@@ -64,7 +75,7 @@ const WatchCalculator = ({ onBack, onRestart }: WatchCalculatorProps) => {
     const body = watchBodyOptions.find((b) => b.id === selectedBody);
     const complLabels = selectedCompleteness.map((id) => watchCompletenessItems.find((c) => c.id === id)?.label).filter(Boolean).join(", ");
     const price = calculatePrice();
-    return `Здравствуйте! Хочу продать Apple Watch.\n\nМодель: ${selectedModel?.name ?? ""}\nРазмер: ${selectedSize}\nЭкран: ${screen?.label ?? ""}\nКорпус: ${body?.label ?? ""}\nКомплектация: ${complLabels || "Только часы"}\n\nПредварительная оценка: ${price.toLocaleString("ru-RU")} ₽`;
+    return `Здравствуйте! Хочу продать Apple Watch.\n\nМодель: ${selectedModel?.name ?? ""}\nРазмер: ${selectedSize}\nБатарея: ${batteryPercent}%\nЭкран: ${screen?.label ?? ""}\nКорпус: ${body?.label ?? ""}\nКомплектация: ${complLabels || "Только часы"}\n\nПредварительная оценка: ${price.toLocaleString("ru-RU")} ₽`;
   };
 
   const whatsappUrl = () => `https://wa.me/89503185530?text=${encodeURIComponent(buildContactMessage())}`;
@@ -217,6 +228,37 @@ const WatchCalculator = ({ onBack, onRestart }: WatchCalculatorProps) => {
           </div>
         )}
 
+        {/* Battery */}
+        {step === "battery" && (
+          <div>
+            <StepHeader title="Состояние батареи 🔋" subtitle="Ёмкость аккумулятора (Настройки → Аккумулятор)" />
+            <div className="grid grid-cols-4 gap-2">
+              {Array.from({ length: 16 }, (_, i) => 100 - i).map((pct) => (
+                <button
+                  key={pct}
+                  onClick={() => {
+                    setBatteryPercent(pct);
+                    setTimeout(goNext, 300);
+                  }}
+                  className={`h-14 rounded-xl border text-center font-semibold transition-all duration-300 ${
+                    batteryPercent === pct
+                      ? "border-primary/60 shadow-[0_0_20px_-4px_hsl(160,55%,45%,0.3)] text-primary"
+                      : "border-[var(--glass-border)] hover:border-primary/30 text-foreground"
+                  }`}
+                  style={{
+                    background: batteryPercent === pct ? 'var(--glass-highlight)' : 'hsla(220, 20%, 16%, 0.4)',
+                    backdropFilter: 'blur(12px)',
+                    WebkitBackdropFilter: 'blur(12px)',
+                  }}
+                >
+                  {pct}%
+                </button>
+              ))}
+            </div>
+            <BottomBackButton />
+          </div>
+        )}
+
         {step === "screen" && renderConditionStep("Состояние экрана 📺", "Есть ли дефекты на экране?", watchScreenOptions, selectedScreen, setSelectedScreen)}
 
         {step === "body" && renderConditionStep("Состояние корпуса 🔍", "Оцените внешний вид корпуса", watchBodyOptions, selectedBody, setSelectedBody)}
@@ -286,7 +328,7 @@ const WatchCalculator = ({ onBack, onRestart }: WatchCalculatorProps) => {
               </h2>
               <div className="space-y-1 text-sm text-muted-foreground">
                 <p>{selectedModel?.name} · {selectedSize}</p>
-                <p>Корпус: {watchBodyOptions.find((b) => b.id === selectedBody)?.label} · Экран: {watchScreenOptions.find((s) => s.id === selectedScreen)?.label}</p>
+                <p>Батарея: {batteryPercent}% · Корпус: {watchBodyOptions.find((b) => b.id === selectedBody)?.label} · Экран: {watchScreenOptions.find((s) => s.id === selectedScreen)?.label}</p>
                 <p>Комплектация: {selectedCompleteness.map((id) => watchCompletenessItems.find((c) => c.id === id)?.label).filter(Boolean).join(", ") || "Только часы"}</p>
               </div>
             </div>
