@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import logo from "@/assets/logo.jpg";
 import MacbookCalculator from "@/components/MacbookCalculator";
 import IpadCalculator from "@/components/IpadCalculator";
+import WatchCalculator from "@/components/WatchCalculator";
 import {
   phoneModels,
   storageOptions,
