@@ -345,6 +345,14 @@ const Calculator = () => {
               />
             )}
 
+            {/* Apple Watch calculator */}
+            {deviceCategory === "applewatch" && step === "model" && (
+              <WatchCalculator
+                onBack={() => { setStep("welcome"); setDeviceCategory(null); }}
+                onRestart={restart}
+              />
+            )}
+
             {/* Model selection */}
             {step === "model" && deviceCategory === "iphone" && (
               <div>
