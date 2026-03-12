@@ -329,7 +329,7 @@ const IpadCalculator = ({ onBack, onRestart }: IpadCalculatorProps) => {
               </h2>
               <div className="space-y-1 text-sm text-muted-foreground">
                 <p>{selectedModel?.name} · {formatSsd(selectedSsd)}</p>
-                <p>Корпус: {ipadBodyOptions.find((b) => b.id === selectedBody)?.label} · Экран: {ipadScreenOptions.find((s) => s.id === selectedScreen)?.label}</p>
+                <p>Батарея: {batteryPercent}% · Корпус: {ipadBodyOptions.find((b) => b.id === selectedBody)?.label} · Экран: {ipadScreenOptions.find((s) => s.id === selectedScreen)?.label}</p>
                 <p>Комплектация: {selectedCompleteness.map((id) => completenessItems.find((c) => c.id === id)?.label).filter(Boolean).join(", ") || "Только iPad"}</p>
               </div>
             </div>

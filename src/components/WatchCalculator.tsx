@@ -328,7 +328,7 @@ const WatchCalculator = ({ onBack, onRestart }: WatchCalculatorProps) => {
               </h2>
               <div className="space-y-1 text-sm text-muted-foreground">
                 <p>{selectedModel?.name} · {selectedSize}</p>
-                <p>Корпус: {watchBodyOptions.find((b) => b.id === selectedBody)?.label} · Экран: {watchScreenOptions.find((s) => s.id === selectedScreen)?.label}</p>
+                <p>Батарея: {batteryPercent}% · Корпус: {watchBodyOptions.find((b) => b.id === selectedBody)?.label} · Экран: {watchScreenOptions.find((s) => s.id === selectedScreen)?.label}</p>
                 <p>Комплектация: {selectedCompleteness.map((id) => watchCompletenessItems.find((c) => c.id === id)?.label).filter(Boolean).join(", ") || "Только часы"}</p>
               </div>
             </div>
