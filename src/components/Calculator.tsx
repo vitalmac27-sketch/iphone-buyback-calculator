@@ -91,6 +91,11 @@ const Calculator = () => {
       setStep("model");
       return;
     }
+    if (step === "model") {
+      setStep("welcome");
+      setDeviceCategory(null);
+      return;
+    }
     const idx = STEPS_ORDER.indexOf(step);
     if (idx > 0) setStep(STEPS_ORDER[idx - 1]);
   };
