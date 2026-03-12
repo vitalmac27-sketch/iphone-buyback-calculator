@@ -268,7 +268,7 @@ const Calculator = () => {
               </div>
             )}
 
-            <div className="animate-fade-in-up">
+            <div>
 
             {/* Welcome */}
             {step === "welcome" && !deviceCategory && (
