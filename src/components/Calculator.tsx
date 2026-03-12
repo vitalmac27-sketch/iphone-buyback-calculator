@@ -129,7 +129,7 @@ const Calculator = () => {
     setSelectedColor("");
     setSelectedCondition("");
     setSelectedScreen("");
-    setBatteryPercent(100);
+    setBatteryPercent(0);
     setSelectedCompleteness("");
   };
 
