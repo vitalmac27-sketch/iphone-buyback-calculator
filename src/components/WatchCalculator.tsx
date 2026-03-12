@@ -34,6 +34,7 @@ const WatchCalculator = ({ onBack, onRestart }: WatchCalculatorProps) => {
   const [step, setStep] = useState<WatchStep>("model");
   const [selectedModelId, setSelectedModelId] = useState("");
   const [selectedSize, setSelectedSize] = useState("");
+  const [batteryPercent, setBatteryPercent] = useState(100);
   const [selectedScreen, setSelectedScreen] = useState("");
   const [selectedBody, setSelectedBody] = useState("");
   const [selectedCompleteness, setSelectedCompleteness] = useState<WatchCompletenessItem[]>([]);
