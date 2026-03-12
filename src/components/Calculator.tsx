@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import logo from "@/assets/logo.jpg";
 import MacbookCalculator from "@/components/MacbookCalculator";
 import IpadCalculator from "@/components/IpadCalculator";
+import WatchCalculator from "@/components/WatchCalculator";
 import {
   phoneModels,
   storageOptions,
@@ -243,7 +244,7 @@ const Calculator = () => {
         <div className="w-full max-w-2xl rounded-2xl shadow-elevated border overflow-hidden" style={{ background: 'var(--glass-bg)', borderColor: 'var(--glass-border)', backdropFilter: 'blur(24px)', WebkitBackdropFilter: 'blur(24px)' }}>
           <div className="p-6 md:p-12 max-h-[calc(100vh-80px)] overflow-y-auto overflow-x-hidden">
             {/* Progress bar */}
-            {progressStep > 0 && step !== "result" && step !== "unsupported" && deviceCategory !== "macbook" && deviceCategory !== "ipad" && (
+            {progressStep > 0 && step !== "result" && step !== "unsupported" && deviceCategory !== "macbook" && deviceCategory !== "ipad" && deviceCategory !== "applewatch" && (
               <div className="mb-8">
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex gap-1.5">
@@ -291,7 +292,7 @@ const Calculator = () => {
                     { id: "iphone" as const, label: "iPhone", icon: Smartphone, available: true },
                     { id: "macbook" as const, label: "MacBook", icon: Laptop, available: true },
                     { id: "ipad" as const, label: "iPad", icon: Tablet, available: true },
-                    { id: "applewatch" as const, label: "Apple Watch", icon: Watch, available: false },
+                    { id: "applewatch" as const, label: "Apple Watch", icon: Watch, available: true },
                   ]).map((device) => (
                     <button
                       key={device.id}
@@ -339,6 +340,14 @@ const Calculator = () => {
             {/* iPad calculator */}
             {deviceCategory === "ipad" && step === "model" && (
               <IpadCalculator
+                onBack={() => { setStep("welcome"); setDeviceCategory(null); }}
+                onRestart={restart}
+              />
+            )}
+
+            {/* Apple Watch calculator */}
+            {deviceCategory === "applewatch" && step === "model" && (
+              <WatchCalculator
                 onBack={() => { setStep("welcome"); setDeviceCategory(null); }}
                 onRestart={restart}
               />
