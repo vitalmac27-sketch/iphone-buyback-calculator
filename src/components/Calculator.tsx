@@ -91,6 +91,11 @@ const Calculator = () => {
       setStep("model");
       return;
     }
+    if (step === "model") {
+      setStep("welcome");
+      setDeviceCategory(null);
+      return;
+    }
     const idx = STEPS_ORDER.indexOf(step);
     if (idx > 0) setStep(STEPS_ORDER[idx - 1]);
   };
@@ -274,9 +279,9 @@ const Calculator = () => {
             {step === "welcome" && !deviceCategory && (
               <div className="text-center space-y-8">
                 <div className="flex flex-col items-center space-y-6">
-                  <div className="relative">
+                  <div className="relative" style={{ minHeight: '120px' }}>
                     <div className="absolute inset-0 bg-primary/20 blur-3xl rounded-full" />
-                    <img src={logo} alt="Скупка Айфонов" loading="eager" fetchPriority="high" className="relative w-full max-w-md h-auto object-contain rounded-2xl" />
+                    <img src={logo} alt="Скупка Айфонов" loading="eager" decoding="sync" className="relative w-full max-w-md h-auto object-contain rounded-2xl" />
                   </div>
                 </div>
                 <div className="space-y-4">
