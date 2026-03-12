@@ -76,7 +76,7 @@ const IpadCalculator = ({ onBack, onRestart }: IpadCalculatorProps) => {
     const body = ipadBodyOptions.find((b) => b.id === selectedBody);
     const complLabels = selectedCompleteness.map((id) => completenessItems.find((c) => c.id === id)?.label).filter(Boolean).join(", ");
     const price = calculatePrice();
-    return `Здравствуйте! Хочу продать iPad.\n\nМодель: ${selectedModel?.name ?? ""}\nПамять: ${formatSsd(selectedSsd)}\nЭкран: ${screen?.label ?? ""}\nКорпус: ${body?.label ?? ""}\nКомплектация: ${complLabels || "Только iPad"}\n\nПредварительная оценка: ${price.toLocaleString("ru-RU")} ₽`;
+    return `Здравствуйте! Хочу продать iPad.\n\nМодель: ${selectedModel?.name ?? ""}\nПамять: ${formatSsd(selectedSsd)}\nБатарея: ${batteryPercent}%\nЭкран: ${screen?.label ?? ""}\nКорпус: ${body?.label ?? ""}\nКомплектация: ${complLabels || "Только iPad"}\n\nПредварительная оценка: ${price.toLocaleString("ru-RU")} ₽`;
   };
 
   const whatsappUrl = () => `https://wa.me/89503185530?text=${encodeURIComponent(buildContactMessage())}`;

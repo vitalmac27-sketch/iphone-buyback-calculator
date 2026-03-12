@@ -75,7 +75,7 @@ const WatchCalculator = ({ onBack, onRestart }: WatchCalculatorProps) => {
     const body = watchBodyOptions.find((b) => b.id === selectedBody);
     const complLabels = selectedCompleteness.map((id) => watchCompletenessItems.find((c) => c.id === id)?.label).filter(Boolean).join(", ");
     const price = calculatePrice();
-    return `Здравствуйте! Хочу продать Apple Watch.\n\nМодель: ${selectedModel?.name ?? ""}\nРазмер: ${selectedSize}\nЭкран: ${screen?.label ?? ""}\nКорпус: ${body?.label ?? ""}\nКомплектация: ${complLabels || "Только часы"}\n\nПредварительная оценка: ${price.toLocaleString("ru-RU")} ₽`;
+    return `Здравствуйте! Хочу продать Apple Watch.\n\nМодель: ${selectedModel?.name ?? ""}\nРазмер: ${selectedSize}\nБатарея: ${batteryPercent}%\nЭкран: ${screen?.label ?? ""}\nКорпус: ${body?.label ?? ""}\nКомплектация: ${complLabels || "Только часы"}\n\nПредварительная оценка: ${price.toLocaleString("ru-RU")} ₽`;
   };
 
   const whatsappUrl = () => `https://wa.me/89503185530?text=${encodeURIComponent(buildContactMessage())}`;
