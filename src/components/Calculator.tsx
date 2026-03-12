@@ -52,7 +52,7 @@ const Calculator = () => {
   const [selectedColor, setSelectedColor] = useState("");
   const [selectedCondition, setSelectedCondition] = useState("");
   const [selectedScreen, setSelectedScreen] = useState("");
-  const [batteryPercent, setBatteryPercent] = useState(100);
+  const [batteryPercent, setBatteryPercent] = useState(0);
   const [selectedCompleteness, setSelectedCompleteness] = useState("");
 
   const isIPhone17 = selectedModel.startsWith("17");
