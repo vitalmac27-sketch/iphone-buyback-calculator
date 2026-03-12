@@ -13,9 +13,18 @@ import {
   type CompletenessItem,
 } from "@/data/ipadData";
 
-type IpadStep = "model" | "ssd" | "screen" | "body" | "completeness" | "result";
+type IpadStep = "model" | "ssd" | "battery" | "screen" | "body" | "completeness" | "result";
 
-const IPAD_STEPS: IpadStep[] = ["model", "ssd", "screen", "body", "completeness", "result"];
+const IPAD_STEPS: IpadStep[] = ["model", "ssd", "battery", "screen", "body", "completeness", "result"];
+
+const getBatteryMultiplier = (percent: number): number => {
+  const map: Record<number, number> = {
+    100: 0.93, 99: 0.91, 98: 0.89, 97: 0.87, 96: 0.85,
+    95: 0.83, 94: 0.81, 93: 0.79, 92: 0.77, 91: 0.75,
+    90: 0.73, 89: 0.71, 88: 0.69, 87: 0.67, 86: 0.66, 85: 0.65,
+  };
+  return map[percent] ?? 0.65;
+};
 
 interface IpadCalculatorProps {
   onBack: () => void;
