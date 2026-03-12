@@ -37,6 +37,7 @@ const IpadCalculator = ({ onBack, onRestart }: IpadCalculatorProps) => {
   const [selectedSsd, setSelectedSsd] = useState<number>(0);
   const [selectedScreen, setSelectedScreen] = useState("");
   const [selectedBody, setSelectedBody] = useState("");
+  const [batteryPercent, setBatteryPercent] = useState(100);
   const [selectedCompleteness, setSelectedCompleteness] = useState<CompletenessItem[]>([]);
 
   const currentIndex = IPAD_STEPS.indexOf(step);
