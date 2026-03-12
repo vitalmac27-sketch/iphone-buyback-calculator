@@ -225,6 +225,37 @@ const IpadCalculator = ({ onBack, onRestart }: IpadCalculatorProps) => {
           </div>
         )}
 
+        {/* Battery */}
+        {step === "battery" && (
+          <div>
+            <StepHeader title="Состояние батареи 🔋" subtitle="Ёмкость аккумулятора (Настройки → Аккумулятор)" />
+            <div className="grid grid-cols-4 gap-2">
+              {Array.from({ length: 16 }, (_, i) => 100 - i).map((pct) => (
+                <button
+                  key={pct}
+                  onClick={() => {
+                    setBatteryPercent(pct);
+                    setTimeout(goNext, 300);
+                  }}
+                  className={`h-14 rounded-xl border text-center font-semibold transition-all duration-300 ${
+                    batteryPercent === pct
+                      ? "border-primary/60 shadow-[0_0_20px_-4px_hsl(160,55%,45%,0.3)] text-primary"
+                      : "border-[var(--glass-border)] hover:border-primary/30 text-foreground"
+                  }`}
+                  style={{
+                    background: batteryPercent === pct ? 'var(--glass-highlight)' : 'hsla(220, 20%, 16%, 0.4)',
+                    backdropFilter: 'blur(12px)',
+                    WebkitBackdropFilter: 'blur(12px)',
+                  }}
+                >
+                  {pct}%
+                </button>
+              ))}
+            </div>
+            <BottomBackButton />
+          </div>
+        )}
+
         {/* Screen */}
         {step === "screen" && renderConditionStep("Состояние экрана 📺", "Есть ли дефекты на экране?", ipadScreenOptions, selectedScreen, setSelectedScreen)}
 
