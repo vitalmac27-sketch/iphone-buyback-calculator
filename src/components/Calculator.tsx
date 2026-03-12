@@ -336,6 +336,14 @@ const Calculator = () => {
               />
             )}
 
+            {/* iPad calculator */}
+            {deviceCategory === "ipad" && step === "model" && (
+              <IpadCalculator
+                onBack={() => { setStep("welcome"); setDeviceCategory(null); }}
+                onRestart={restart}
+              />
+            )}
+
             {/* Model selection */}
             {step === "model" && deviceCategory === "iphone" && (
               <div>
