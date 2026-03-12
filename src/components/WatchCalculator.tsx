@@ -12,9 +12,18 @@ import {
   type WatchCompletenessItem,
 } from "@/data/watchData";
 
-type WatchStep = "model" | "size" | "screen" | "body" | "completeness" | "result";
+type WatchStep = "model" | "size" | "battery" | "screen" | "body" | "completeness" | "result";
 
-const WATCH_STEPS: WatchStep[] = ["model", "size", "screen", "body", "completeness", "result"];
+const WATCH_STEPS: WatchStep[] = ["model", "size", "battery", "screen", "body", "completeness", "result"];
+
+const getBatteryMultiplier = (percent: number): number => {
+  const map: Record<number, number> = {
+    100: 0.93, 99: 0.91, 98: 0.89, 97: 0.87, 96: 0.85,
+    95: 0.83, 94: 0.81, 93: 0.79, 92: 0.77, 91: 0.75,
+    90: 0.73, 89: 0.71, 88: 0.69, 87: 0.67, 86: 0.66, 85: 0.65,
+  };
+  return map[percent] ?? 0.65;
+};
 
 interface WatchCalculatorProps {
   onBack: () => void;
