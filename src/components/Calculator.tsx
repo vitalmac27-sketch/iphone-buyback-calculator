@@ -52,7 +52,7 @@ const Calculator = () => {
   const [selectedColor, setSelectedColor] = useState("");
   const [selectedCondition, setSelectedCondition] = useState("");
   const [selectedScreen, setSelectedScreen] = useState("");
-  const [batteryPercent, setBatteryPercent] = useState(100);
+  const [batteryPercent, setBatteryPercent] = useState(0);
   const [selectedCompleteness, setSelectedCompleteness] = useState("");
 
   const isIPhone17 = selectedModel.startsWith("17");
@@ -129,7 +129,7 @@ const Calculator = () => {
     setSelectedColor("");
     setSelectedCondition("");
     setSelectedScreen("");
-    setBatteryPercent(100);
+    setBatteryPercent(0);
     setSelectedCompleteness("");
   };
 
@@ -268,7 +268,7 @@ const Calculator = () => {
               </div>
             )}
 
-            <div className="animate-fade-in-up">
+            <div>
 
             {/* Welcome */}
             {step === "welcome" && !deviceCategory && (
