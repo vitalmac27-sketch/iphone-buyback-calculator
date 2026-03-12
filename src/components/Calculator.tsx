@@ -290,7 +290,7 @@ const Calculator = () => {
                   {([
                     { id: "iphone" as const, label: "iPhone", icon: Smartphone, available: true },
                     { id: "macbook" as const, label: "MacBook", icon: Laptop, available: true },
-                    { id: "ipad" as const, label: "iPad", icon: Tablet, available: false },
+                    { id: "ipad" as const, label: "iPad", icon: Tablet, available: true },
                     { id: "applewatch" as const, label: "Apple Watch", icon: Watch, available: false },
                   ]).map((device) => (
                     <button
