@@ -63,10 +63,11 @@ const IpadCalculator = ({ onBack, onRestart }: IpadCalculatorProps) => {
   const calculatePrice = () => {
     if (!selectedModel) return 0;
     const ssdMult = getSsdMultiplier(selectedSsd, selectedModel.ssdOptions);
+    const batteryMult = getBatteryMultiplier(batteryPercent);
     const screenMult = ipadScreenOptions.find((s) => s.id === selectedScreen)?.multiplier ?? 1;
     const bodyMult = ipadBodyOptions.find((b) => b.id === selectedBody)?.multiplier ?? 1;
     const complMult = getCompletenessMultiplier(selectedCompleteness);
-    const price = selectedModel.basePrice * ssdMult * screenMult * bodyMult * complMult;
+    const price = selectedModel.basePrice * ssdMult * batteryMult * screenMult * bodyMult * complMult;
     return Math.ceil(price / 500) * 500;
   };
 
