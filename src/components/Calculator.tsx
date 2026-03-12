@@ -3,6 +3,7 @@ import { ChevronRight, ArrowLeft, Phone, CheckCircle2, AlertTriangle, Smartphone
 import { motion } from "framer-motion";
 import logo from "@/assets/logo.jpg";
 import MacbookCalculator from "@/components/MacbookCalculator";
+import IpadCalculator from "@/components/IpadCalculator";
 import {
   phoneModels,
   storageOptions,
