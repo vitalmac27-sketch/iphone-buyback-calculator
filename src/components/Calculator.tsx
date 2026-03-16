@@ -56,7 +56,7 @@ const Calculator = () => {
   const [selectedCondition, setSelectedCondition] = useState("");
   const [selectedScreen, setSelectedScreen] = useState("");
   const [batteryPercent, setBatteryPercent] = useState(0);
-  const [selectedCompleteness, setSelectedCompleteness] = useState("");
+  const [selectedCompleteness, setSelectedCompleteness] = useState<IphoneCompletenessItem[]>([]);
 
   const isIPhone17 = selectedModel.startsWith("17");
   const hasColors = isIPhone17 && modelColors[selectedModel];
