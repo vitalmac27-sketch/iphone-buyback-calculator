@@ -522,9 +522,59 @@ const Calculator = () => {
               </div>
             )}
 
-            {/* Completeness */}
-            {step === "completeness" &&
-              renderConditionStep("Комплектация 📦", "Что идёт в комплекте?", complectnessOptions, selectedCompleteness, setSelectedCompleteness)}
+            {/* Completeness with checkboxes */}
+            {step === "completeness" && (
+              <div>
+                <StepHeader title="Комплектация 📦" subtitle="Что идёт в комплекте? Отметьте всё, что есть" />
+                <div className="space-y-3">
+                  {iphoneCompletenessItems.map((item) => {
+                    const checked = selectedCompleteness.includes(item.id);
+                    return (
+                      <button
+                        key={item.id}
+                        onClick={() =>
+                          setSelectedCompleteness((prev) =>
+                            prev.includes(item.id) ? prev.filter((i) => i !== item.id) : [...prev, item.id]
+                          )
+                        }
+                        className={`w-full text-left p-4 rounded-xl border transition-all duration-300 ${
+                          checked ? "border-primary/60 shadow-[0_0_20px_-4px_hsl(160,55%,45%,0.3)]" : "border-[var(--glass-border)] hover:border-primary/30"
+                        }`}
+                        style={{
+                          background: checked ? 'var(--glass-highlight)' : 'hsla(220, 20%, 16%, 0.4)',
+                          backdropFilter: 'blur(12px)',
+                          WebkitBackdropFilter: 'blur(12px)',
+                        }}
+                      >
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-3">
+                            <div
+                              className={`w-5 h-5 rounded border-2 flex items-center justify-center transition-all ${
+                                checked ? "bg-primary border-primary" : "border-muted-foreground/40"
+                              }`}
+                            >
+                              {checked && (
+                                <svg className="w-3 h-3 text-primary-foreground" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="2">
+                                  <path d="M2 6l3 3 5-5" />
+                                </svg>
+                              )}
+                            </div>
+                            <p className="font-semibold text-foreground text-base md:text-lg">{item.label}</p>
+                          </div>
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
+                <button
+                  onClick={goNext}
+                  className="w-full h-14 mt-4 bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-all text-lg font-semibold rounded-2xl shadow-lg text-primary-foreground flex items-center justify-center gap-2"
+                >
+                  Далее
+                </button>
+                <BottomBackButton />
+              </div>
+            )}
 
             {/* Result */}
             {step === "result" && (
