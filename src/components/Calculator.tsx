@@ -13,7 +13,10 @@ import {
   complectnessOptions,
   modelColors,
   colorPrices,
+  iphoneCompletenessItems,
+  getIphoneCompletenessMultiplier,
   type ConditionOption,
+  type IphoneCompletenessItem,
 } from "@/data/calculatorData";
 
 type DeviceCategory = "iphone" | "macbook" | "ipad" | "applewatch" | null;
