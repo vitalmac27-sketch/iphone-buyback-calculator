@@ -138,7 +138,7 @@ const Calculator = () => {
     setSelectedCondition("");
     setSelectedScreen("");
     setBatteryPercent(0);
-    setSelectedCompleteness("");
+    setSelectedCompleteness([]);
   };
 
   const buildContactMessage = () => {
