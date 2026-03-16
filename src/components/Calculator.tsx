@@ -119,13 +119,13 @@ const Calculator = () => {
     const condition = conditionOptions.find((c) => c.id === selectedCondition);
     const screen = screenOptions.find((s) => s.id === selectedScreen);
     const batteryMult = getBatteryMultiplier(batteryPercent);
-    const completeness = complectnessOptions.find((c) => c.id === selectedCompleteness);
+    const complMult = getIphoneCompletenessMultiplier(selectedCompleteness);
     const price =
       basePrice *
       (condition?.multiplier ?? 1) *
       (screen?.multiplier ?? 1) *
       batteryMult *
-      (completeness?.multiplier ?? 1);
+      complMult;
     return Math.ceil(price / 500) * 500;
   };
 
