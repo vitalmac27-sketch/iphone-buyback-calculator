@@ -595,7 +595,7 @@ const Calculator = () => {
                   <div className="space-y-1 text-sm text-muted-foreground">
                     <p>{phoneModels.find((m) => m.id === selectedModel)?.name} · {storageOptions.find((s) => s.id === selectedStorage)?.label}{selectedColor ? ` · ${modelColors[selectedModel]?.find((c) => c.id === selectedColor)?.label ?? ""}` : ""}</p>
                     <p>Корпус: {conditionOptions.find((c) => c.id === selectedCondition)?.label} · Экран: {screenOptions.find((s) => s.id === selectedScreen)?.label}</p>
-                    <p>Батарея: {batteryPercent}% · {complectnessOptions.find((c) => c.id === selectedCompleteness)?.label}</p>
+                    <p>Батарея: {batteryPercent}% · Комплектация: {selectedCompleteness.map((id) => iphoneCompletenessItems.find((c) => c.id === id)?.label).filter(Boolean).join(", ") || "Только телефон"}</p>
                   </div>
                 </div>
                 <motion.div
