@@ -88,6 +88,21 @@ export const complectnessOptions: ConditionOption[] = [
   { id: "none", label: "Только телефон", description: "Без аксессуаров и коробки", multiplier: 0.93 },
 ];
 
+export type IphoneCompletenessItem = "box" | "cable" | "receipt";
+
+export const iphoneCompletenessItems: { id: IphoneCompletenessItem; label: string }[] = [
+  { id: "box", label: "Коробка" },
+  { id: "cable", label: "Кабель" },
+  { id: "receipt", label: "Чек" },
+];
+
+export const getIphoneCompletenessMultiplier = (items: IphoneCompletenessItem[]): number => {
+  if (items.length === 3) return 1.0;
+  if (items.length === 2) return 0.97;
+  if (items.length === 1) return 0.95;
+  return 0.93;
+};
+
 export interface ColorOption {
   id: string;
   label: string;
