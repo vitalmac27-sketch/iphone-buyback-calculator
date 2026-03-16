@@ -13,7 +13,10 @@ import {
   complectnessOptions,
   modelColors,
   colorPrices,
+  iphoneCompletenessItems,
+  getIphoneCompletenessMultiplier,
   type ConditionOption,
+  type IphoneCompletenessItem,
 } from "@/data/calculatorData";
 
 type DeviceCategory = "iphone" | "macbook" | "ipad" | "applewatch" | null;
@@ -53,7 +56,7 @@ const Calculator = () => {
   const [selectedCondition, setSelectedCondition] = useState("");
   const [selectedScreen, setSelectedScreen] = useState("");
   const [batteryPercent, setBatteryPercent] = useState(0);
-  const [selectedCompleteness, setSelectedCompleteness] = useState("");
+  const [selectedCompleteness, setSelectedCompleteness] = useState<IphoneCompletenessItem[]>([]);
 
   const isIPhone17 = selectedModel.startsWith("17");
   const hasColors = isIPhone17 && modelColors[selectedModel];
@@ -116,13 +119,13 @@ const Calculator = () => {
     const condition = conditionOptions.find((c) => c.id === selectedCondition);
     const screen = screenOptions.find((s) => s.id === selectedScreen);
     const batteryMult = getBatteryMultiplier(batteryPercent);
-    const completeness = complectnessOptions.find((c) => c.id === selectedCompleteness);
+    const complMult = getIphoneCompletenessMultiplier(selectedCompleteness);
     const price =
       basePrice *
       (condition?.multiplier ?? 1) *
       (screen?.multiplier ?? 1) *
       batteryMult *
-      (completeness?.multiplier ?? 1);
+      complMult;
     return Math.ceil(price / 500) * 500;
   };
 
@@ -135,7 +138,7 @@ const Calculator = () => {
     setSelectedCondition("");
     setSelectedScreen("");
     setBatteryPercent(0);
-    setSelectedCompleteness("");
+    setSelectedCompleteness([]);
   };
 
   const buildContactMessage = () => {
@@ -144,10 +147,10 @@ const Calculator = () => {
     const colorLabel = selectedColor ? modelColors[selectedModel]?.find((c) => c.id === selectedColor)?.label : "";
     const condition = conditionOptions.find((c) => c.id === selectedCondition);
     const screen = screenOptions.find((s) => s.id === selectedScreen);
-    const completeness = complectnessOptions.find((c) => c.id === selectedCompleteness);
+    const complLabels = selectedCompleteness.map((id) => iphoneCompletenessItems.find((c) => c.id === id)?.label).filter(Boolean).join(", ");
     const price = calculatePrice();
 
-    return `Здравствуйте! Хочу продать iPhone.\n\nМодель: ${model?.name ?? ""}${colorLabel ? ` ${colorLabel}` : ""}\nПамять: ${storage?.label ?? ""}\nСостояние корпуса: ${condition?.label ?? ""}\nЭкран: ${screen?.label ?? ""}\nБатарея: ${batteryPercent}%\nКомплектация: ${completeness?.label ?? ""}\n\nПредварительная оценка: ${price.toLocaleString("ru-RU")} ₽`;
+    return `Здравствуйте! Хочу продать iPhone.\n\nМодель: ${model?.name ?? ""}${colorLabel ? ` ${colorLabel}` : ""}\nПамять: ${storage?.label ?? ""}\nСостояние корпуса: ${condition?.label ?? ""}\nЭкран: ${screen?.label ?? ""}\nБатарея: ${batteryPercent}%\nКомплектация: ${complLabels || "Только телефон"}\n\nПредварительная оценка: ${price.toLocaleString("ru-RU")} ₽`;
   };
 
   const whatsappUrl = () => {
@@ -519,9 +522,59 @@ const Calculator = () => {
               </div>
             )}
 
-            {/* Completeness */}
-            {step === "completeness" &&
-              renderConditionStep("Комплектация 📦", "Что идёт в комплекте?", complectnessOptions, selectedCompleteness, setSelectedCompleteness)}
+            {/* Completeness with checkboxes */}
+            {step === "completeness" && (
+              <div>
+                <StepHeader title="Комплектация 📦" subtitle="Что идёт в комплекте? Отметьте всё, что есть" />
+                <div className="space-y-3">
+                  {iphoneCompletenessItems.map((item) => {
+                    const checked = selectedCompleteness.includes(item.id);
+                    return (
+                      <button
+                        key={item.id}
+                        onClick={() =>
+                          setSelectedCompleteness((prev) =>
+                            prev.includes(item.id) ? prev.filter((i) => i !== item.id) : [...prev, item.id]
+                          )
+                        }
+                        className={`w-full text-left p-4 rounded-xl border transition-all duration-300 ${
+                          checked ? "border-primary/60 shadow-[0_0_20px_-4px_hsl(160,55%,45%,0.3)]" : "border-[var(--glass-border)] hover:border-primary/30"
+                        }`}
+                        style={{
+                          background: checked ? 'var(--glass-highlight)' : 'hsla(220, 20%, 16%, 0.4)',
+                          backdropFilter: 'blur(12px)',
+                          WebkitBackdropFilter: 'blur(12px)',
+                        }}
+                      >
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-3">
+                            <div
+                              className={`w-5 h-5 rounded border-2 flex items-center justify-center transition-all ${
+                                checked ? "bg-primary border-primary" : "border-muted-foreground/40"
+                              }`}
+                            >
+                              {checked && (
+                                <svg className="w-3 h-3 text-primary-foreground" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="2">
+                                  <path d="M2 6l3 3 5-5" />
+                                </svg>
+                              )}
+                            </div>
+                            <p className="font-semibold text-foreground text-base md:text-lg">{item.label}</p>
+                          </div>
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
+                <button
+                  onClick={goNext}
+                  className="w-full h-14 mt-4 bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-all text-lg font-semibold rounded-2xl shadow-lg text-primary-foreground flex items-center justify-center gap-2"
+                >
+                  Далее
+                </button>
+                <BottomBackButton />
+              </div>
+            )}
 
             {/* Result */}
             {step === "result" && (
@@ -542,7 +595,7 @@ const Calculator = () => {
                   <div className="space-y-1 text-sm text-muted-foreground">
                     <p>{phoneModels.find((m) => m.id === selectedModel)?.name} · {storageOptions.find((s) => s.id === selectedStorage)?.label}{selectedColor ? ` · ${modelColors[selectedModel]?.find((c) => c.id === selectedColor)?.label ?? ""}` : ""}</p>
                     <p>Корпус: {conditionOptions.find((c) => c.id === selectedCondition)?.label} · Экран: {screenOptions.find((s) => s.id === selectedScreen)?.label}</p>
-                    <p>Батарея: {batteryPercent}% · {complectnessOptions.find((c) => c.id === selectedCompleteness)?.label}</p>
+                    <p>Батарея: {batteryPercent}% · Комплектация: {selectedCompleteness.map((id) => iphoneCompletenessItems.find((c) => c.id === id)?.label).filter(Boolean).join(", ") || "Только телефон"}</p>
                   </div>
                 </div>
                 <motion.div
