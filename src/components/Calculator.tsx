@@ -148,9 +148,8 @@ const Calculator = () => {
     const condition = conditionOptions.find((c) => c.id === selectedCondition);
     const screen = screenOptions.find((s) => s.id === selectedScreen);
     const complLabels = selectedCompleteness.map((id) => iphoneCompletenessItems.find((c) => c.id === id)?.label).filter(Boolean).join(", ");
-    const price = calculatePrice();
 
-    return `Здравствуйте! Хочу продать iPhone.\n\nМодель: ${model?.name ?? ""}${colorLabel ? ` ${colorLabel}` : ""}\nПамять: ${storage?.label ?? ""}\nСостояние корпуса: ${condition?.label ?? ""}\nЭкран: ${screen?.label ?? ""}\nБатарея: ${batteryPercent}%\nКомплектация: ${complLabels || "Только телефон"}\n\nПредварительная оценка: ${price.toLocaleString("ru-RU")} ₽`;
+    return `Здравствуйте! Хочу продать iPhone.\n\nМодель: ${model?.name ?? ""}${colorLabel ? ` ${colorLabel}` : ""}\nПамять: ${storage?.label ?? ""}\nСостояние корпуса: ${condition?.label ?? ""}\nЭкран: ${screen?.label ?? ""}\nБатарея: ${batteryPercent}%\nКомплектация: ${complLabels || "Только телефон"}`;
   };
 
   const whatsappUrl = () => {
