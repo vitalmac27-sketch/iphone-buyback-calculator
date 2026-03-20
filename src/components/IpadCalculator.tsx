@@ -75,7 +75,7 @@ const IpadCalculator = ({ onBack, onRestart }: IpadCalculatorProps) => {
     const screen = ipadScreenOptions.find((s) => s.id === selectedScreen);
     const body = ipadBodyOptions.find((b) => b.id === selectedBody);
     const complLabels = selectedCompleteness.map((id) => completenessItems.find((c) => c.id === id)?.label).filter(Boolean).join(", ");
-    return `Здравствуйте! Хочу продать iPad.\n\nМодель: ${selectedModel?.name ?? ""}\nПамять: ${formatSsd(selectedSsd)}\nБатарея: ${batteryPercent}%\nЭкран: ${screen?.label ?? ""}\nКорпус: ${body?.label ?? ""}\nКомплектация: ${complLabels || "Только iPad"}`;
+    return `Здравствуйте! Хочу продать iPad.\n\n📱 ${selectedModel?.name ?? ""} ${formatSsd(selectedSsd)}\n🔋 ${batteryPercent}% • ${screen?.label ?? ""}\n🖥 Корпус: ${body?.label ?? ""}\n📦 ${complLabels || "Только iPad"}`;
   };
 
   const whatsappUrl = () => `https://wa.me/89503185530?text=${encodeURIComponent(buildContactMessage())}`;
