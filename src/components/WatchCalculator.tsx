@@ -74,7 +74,7 @@ const WatchCalculator = ({ onBack, onRestart }: WatchCalculatorProps) => {
     const screen = watchScreenOptions.find((s) => s.id === selectedScreen);
     const body = watchBodyOptions.find((b) => b.id === selectedBody);
     const complLabels = selectedCompleteness.map((id) => watchCompletenessItems.find((c) => c.id === id)?.label).filter(Boolean).join(", ");
-    return `Здравствуйте! Хочу продать Apple Watch.\n\nМодель: ${selectedModel?.name ?? ""}\nРазмер: ${selectedSize}\nБатарея: ${batteryPercent}%\nЭкран: ${screen?.label ?? ""}\nКорпус: ${body?.label ?? ""}\nКомплектация: ${complLabels || "Только часы"}`;
+    return `Здравствуйте! Хочу продать Apple Watch.\n\n⌚ ${selectedModel?.name ?? ""} ${selectedSize}\n🔋 ${batteryPercent}% • ${screen?.label ?? ""}\n🖥 Корпус: ${body?.label ?? ""}\n📦 ${complLabels || "Только часы"}`;
   };
 
   const whatsappUrl = () => `https://wa.me/89503185530?text=${encodeURIComponent(buildContactMessage())}`;
@@ -323,15 +323,15 @@ const WatchCalculator = ({ onBack, onRestart }: WatchCalculatorProps) => {
                 <Watch className="w-10 h-10 text-primary" />
               </motion.div>
               <h2 className="text-2xl md:text-3xl font-bold text-foreground">
-                Отлично! Ваш {selectedModel?.name} подходит для продажи ✅
+                Ваш {selectedModel?.name} подходит! ✅
               </h2>
               <p className="text-lg text-muted-foreground">
-                Свяжитесь с менеджером для точной оценки вашего устройства
+                Свяжитесь с менеджером для оценки вашего устройства
               </p>
-              <div className="space-y-1 text-sm text-muted-foreground">
-                <p>{selectedModel?.name} · {selectedSize}</p>
-                <p>Батарея: {batteryPercent}% · Корпус: {watchBodyOptions.find((b) => b.id === selectedBody)?.label} · Экран: {watchScreenOptions.find((s) => s.id === selectedScreen)?.label}</p>
-                <p>Комплектация: {selectedCompleteness.map((id) => watchCompletenessItems.find((c) => c.id === id)?.label).filter(Boolean).join(", ") || "Только часы"}</p>
+              <div className="space-y-1 text-base text-muted-foreground">
+                <p>⌚ {selectedModel?.name} • {selectedSize}</p>
+                <p>🔋 {batteryPercent}% • {watchScreenOptions.find((s) => s.id === selectedScreen)?.label}</p>
+                <p>📦 {selectedCompleteness.map((id) => watchCompletenessItems.find((c) => c.id === id)?.label).filter(Boolean).join(", ") || "Только часы"}</p>
               </div>
             </div>
             <div className="flex flex-col gap-3">

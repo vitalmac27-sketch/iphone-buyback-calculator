@@ -84,7 +84,7 @@ const MacbookCalculator = ({ onBack, onRestart }: MacbookCalculatorProps) => {
     const screen = macbookScreenOptions.find((s) => s.id === selectedScreen);
     const body = macbookBodyOptions.find((b) => b.id === selectedBody);
     const compl = macbookCompletenessOptions.find((c) => c.id === selectedCompleteness);
-    return `Здравствуйте! Хочу продать MacBook.\n\nМодель: ${selectedModel?.name ?? ""}\nRAM: ${formatRam(selectedRam)}\nSSD: ${formatSsd(selectedSsd)}\nЭкран: ${screen?.label ?? ""}\nКорпус: ${body?.label ?? ""}\nБатарея: ${batteryPercent}%\nКомплектация: ${compl?.label ?? ""}`;
+    return `Здравствуйте! Хочу продать MacBook.\n\n💻 ${selectedModel?.name ?? ""}\n🧠 RAM: ${formatRam(selectedRam)} • SSD: ${formatSsd(selectedSsd)}\n🔋 ${batteryPercent}% • ${screen?.label ?? ""}\n🖥 Корпус: ${body?.label ?? ""}\n📦 ${compl?.label ?? ""}`;
   };
 
   const whatsappUrl = () => `https://wa.me/89503185530?text=${encodeURIComponent(buildContactMessage())}`;
@@ -332,15 +332,15 @@ const MacbookCalculator = ({ onBack, onRestart }: MacbookCalculatorProps) => {
                 <Laptop className="w-10 h-10 text-primary" />
               </motion.div>
               <h2 className="text-2xl md:text-3xl font-bold text-foreground">
-                Отлично! Ваш {selectedModel?.name} подходит для продажи ✅
+                Ваш {selectedModel?.name} подходит! ✅
               </h2>
               <p className="text-lg text-muted-foreground">
-                Свяжитесь с менеджером для точной оценки вашего устройства
+                Свяжитесь с менеджером для оценки вашего устройства
               </p>
-              <div className="space-y-1 text-sm text-muted-foreground">
-                <p>{selectedModel?.name} · {formatRam(selectedRam)} · {formatSsd(selectedSsd)}</p>
-                <p>Корпус: {macbookBodyOptions.find((b) => b.id === selectedBody)?.label} · Экран: {macbookScreenOptions.find((s) => s.id === selectedScreen)?.label}</p>
-                <p>Батарея: {batteryPercent}% · {macbookCompletenessOptions.find((c) => c.id === selectedCompleteness)?.label}</p>
+              <div className="space-y-1 text-base text-muted-foreground">
+                <p>💻 {selectedModel?.name} • {formatRam(selectedRam)} • {formatSsd(selectedSsd)}</p>
+                <p>🔋 {batteryPercent}% • {macbookScreenOptions.find((s) => s.id === selectedScreen)?.label}</p>
+                <p>📦 {macbookCompletenessOptions.find((c) => c.id === selectedCompleteness)?.label}</p>
               </div>
             </div>
             <div className="flex flex-col gap-3">

@@ -149,7 +149,7 @@ const Calculator = () => {
     const screen = screenOptions.find((s) => s.id === selectedScreen);
     const complLabels = selectedCompleteness.map((id) => iphoneCompletenessItems.find((c) => c.id === id)?.label).filter(Boolean).join(", ");
 
-    return `Здравствуйте! Хочу продать iPhone.\n\nМодель: ${model?.name ?? ""}${colorLabel ? ` ${colorLabel}` : ""}\nПамять: ${storage?.label ?? ""}\nСостояние корпуса: ${condition?.label ?? ""}\nЭкран: ${screen?.label ?? ""}\nБатарея: ${batteryPercent}%\nКомплектация: ${complLabels || "Только телефон"}`;
+    return `Здравствуйте! Хочу продать iPhone.\n\n📱 ${model?.name ?? ""}${colorLabel ? ` ${colorLabel}` : ""} ${storage?.label ?? ""}\n🔋 ${batteryPercent}% • ${screen?.label ?? ""}\n🖥 Корпус: ${condition?.label ?? ""}\n📦 ${complLabels || "Только телефон"}`;
   };
 
   const whatsappUrl = () => {
@@ -589,15 +589,15 @@ const Calculator = () => {
                     <CheckCircle2 className="w-10 h-10 text-primary" />
                   </motion.div>
                   <h2 className="text-2xl md:text-3xl font-bold text-foreground">
-                    Отлично! Ваш {phoneModels.find((m) => m.id === selectedModel)?.name} подходит для продажи ✅
+                    Ваш {phoneModels.find((m) => m.id === selectedModel)?.name} подходит! ✅
                   </h2>
                   <p className="text-lg text-muted-foreground">
-                    Свяжитесь с менеджером для точной оценки вашего устройства
+                    Свяжитесь с менеджером для оценки вашего устройства
                   </p>
-                  <div className="space-y-1 text-sm text-muted-foreground">
-                    <p>{phoneModels.find((m) => m.id === selectedModel)?.name} · {storageOptions.find((s) => s.id === selectedStorage)?.label}{selectedColor ? ` · ${modelColors[selectedModel]?.find((c) => c.id === selectedColor)?.label ?? ""}` : ""}</p>
-                    <p>Корпус: {conditionOptions.find((c) => c.id === selectedCondition)?.label} · Экран: {screenOptions.find((s) => s.id === selectedScreen)?.label}</p>
-                    <p>Батарея: {batteryPercent}% · Комплектация: {selectedCompleteness.map((id) => iphoneCompletenessItems.find((c) => c.id === id)?.label).filter(Boolean).join(", ") || "Только телефон"}</p>
+                  <div className="space-y-1 text-base text-muted-foreground">
+                    <p>📱 {phoneModels.find((m) => m.id === selectedModel)?.name} {storageOptions.find((s) => s.id === selectedStorage)?.label}{selectedColor ? ` · ${modelColors[selectedModel]?.find((c) => c.id === selectedColor)?.label ?? ""}` : ""}</p>
+                    <p>🔋 {batteryPercent}% • {screenOptions.find((s) => s.id === selectedScreen)?.label}</p>
+                    <p>📦 {selectedCompleteness.map((id) => iphoneCompletenessItems.find((c) => c.id === id)?.label).filter(Boolean).join(", ") || "Только телефон"}</p>
                   </div>
                 </div>
                 <div className="flex flex-col gap-3">
