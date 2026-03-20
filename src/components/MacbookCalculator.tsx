@@ -332,15 +332,15 @@ const MacbookCalculator = ({ onBack, onRestart }: MacbookCalculatorProps) => {
                 <Laptop className="w-10 h-10 text-primary" />
               </motion.div>
               <h2 className="text-2xl md:text-3xl font-bold text-foreground">
-                Отлично! Ваш {selectedModel?.name} подходит для продажи ✅
+                Ваш {selectedModel?.name} подходит! ✅
               </h2>
               <p className="text-lg text-muted-foreground">
-                Свяжитесь с менеджером для точной оценки вашего устройства
+                Свяжитесь с менеджером для оценки вашего устройства
               </p>
-              <div className="space-y-1 text-sm text-muted-foreground">
-                <p>{selectedModel?.name} · {formatRam(selectedRam)} · {formatSsd(selectedSsd)}</p>
-                <p>Корпус: {macbookBodyOptions.find((b) => b.id === selectedBody)?.label} · Экран: {macbookScreenOptions.find((s) => s.id === selectedScreen)?.label}</p>
-                <p>Батарея: {batteryPercent}% · {macbookCompletenessOptions.find((c) => c.id === selectedCompleteness)?.label}</p>
+              <div className="space-y-1 text-base text-muted-foreground">
+                <p>💻 {selectedModel?.name} • {formatRam(selectedRam)} • {formatSsd(selectedSsd)}</p>
+                <p>🔋 {batteryPercent}% • {macbookScreenOptions.find((s) => s.id === selectedScreen)?.label}</p>
+                <p>📦 {macbookCompletenessOptions.find((c) => c.id === selectedCompleteness)?.label}</p>
               </div>
             </div>
             <div className="flex flex-col gap-3">
