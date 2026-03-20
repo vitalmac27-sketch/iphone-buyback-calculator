@@ -149,7 +149,7 @@ const Calculator = () => {
     const screen = screenOptions.find((s) => s.id === selectedScreen);
     const complLabels = selectedCompleteness.map((id) => iphoneCompletenessItems.find((c) => c.id === id)?.label).filter(Boolean).join(", ");
 
-    return `Здравствуйте! Хочу продать iPhone.\n\nМодель: ${model?.name ?? ""}${colorLabel ? ` ${colorLabel}` : ""}\nПамять: ${storage?.label ?? ""}\nСостояние корпуса: ${condition?.label ?? ""}\nЭкран: ${screen?.label ?? ""}\nБатарея: ${batteryPercent}%\nКомплектация: ${complLabels || "Только телефон"}`;
+    return `Здравствуйте! Хочу продать iPhone.\n\n📱 ${model?.name ?? ""}${colorLabel ? ` ${colorLabel}` : ""} ${storage?.label ?? ""}\n🔋 ${batteryPercent}% • ${screen?.label ?? ""}\n🖥 Корпус: ${condition?.label ?? ""}\n📦 ${complLabels || "Только телефон"}`;
   };
 
   const whatsappUrl = () => {
