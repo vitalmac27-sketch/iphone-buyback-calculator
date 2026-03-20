@@ -84,7 +84,7 @@ const MacbookCalculator = ({ onBack, onRestart }: MacbookCalculatorProps) => {
     const screen = macbookScreenOptions.find((s) => s.id === selectedScreen);
     const body = macbookBodyOptions.find((b) => b.id === selectedBody);
     const compl = macbookCompletenessOptions.find((c) => c.id === selectedCompleteness);
-    return `Здравствуйте! Хочу продать MacBook.\n\nМодель: ${selectedModel?.name ?? ""}\nRAM: ${formatRam(selectedRam)}\nSSD: ${formatSsd(selectedSsd)}\nЭкран: ${screen?.label ?? ""}\nКорпус: ${body?.label ?? ""}\nБатарея: ${batteryPercent}%\nКомплектация: ${compl?.label ?? ""}`;
+    return `Здравствуйте! Хочу продать MacBook.\n\n💻 ${selectedModel?.name ?? ""}\n🧠 RAM: ${formatRam(selectedRam)} • SSD: ${formatSsd(selectedSsd)}\n🔋 ${batteryPercent}% • ${screen?.label ?? ""}\n🖥 Корпус: ${body?.label ?? ""}\n📦 ${compl?.label ?? ""}`;
   };
 
   const whatsappUrl = () => `https://wa.me/89503185530?text=${encodeURIComponent(buildContactMessage())}`;
