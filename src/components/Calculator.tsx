@@ -69,16 +69,6 @@ const Calculator = () => {
     return storageOptions.filter((s) => s.id !== "2048");
   }, [isIPhone17]);
 
-  // Filter colors based on available prices for selected storage
-  const availableColors = useMemo(() => {
-    if (!hasColors) return [];
-    const colors = modelColors[selectedModel] || [];
-    if (!selectedStorage) return colors;
-    return colors.filter((c) => {
-      const key = `${selectedModel}_${selectedStorage}_${c.id}`;
-      return colorPrices[key] !== undefined;
-    });
-  }, [selectedModel, selectedStorage, hasColors]);
 
   const goNext = () => {
     const idx = STEPS_ORDER.indexOf(step);
