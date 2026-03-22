@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { ChevronRight, ArrowLeft, CheckCircle2, AlertTriangle, Laptop, Phone } from "lucide-react";
+import { ChevronRight, ArrowLeft, CheckCircle2, AlertTriangle, Laptop, MessageCircle } from "lucide-react";
 import { motion } from "framer-motion";
 import {
   macbookModels,
