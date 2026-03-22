@@ -114,7 +114,6 @@ const Calculator = () => {
     setDeviceCategory(null);
     setSelectedModel("");
     setSelectedStorage("");
-    setSelectedColor("");
     setSelectedCondition("");
     setSelectedScreen("");
     setBatteryPercent(0);
