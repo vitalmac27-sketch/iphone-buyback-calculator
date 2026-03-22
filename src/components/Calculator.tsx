@@ -247,16 +247,16 @@ const Calculator = () => {
 
             {/* Welcome */}
             {step === "welcome" && !deviceCategory && (
-              <div className="text-center space-y-8">
+              <div className="text-center space-y-8 pt-4">
                 <div className="flex flex-col items-center space-y-6">
-                  <div className="relative" style={{ minHeight: '120px' }}>
+                  <div className="relative mt-2" style={{ minHeight: '120px' }}>
                     <div className="absolute inset-0 bg-primary/20 blur-3xl rounded-full" />
                     <img src={logo} alt="Скупка Айфонов" loading="eager" decoding="sync" className="relative w-full max-w-md h-auto object-contain rounded-2xl" />
                   </div>
                 </div>
                 <div className="space-y-4">
                   <h2 className="text-3xl md:text-4xl font-bold text-foreground leading-tight">
-                    Оцени своё устройство 👋
+                    Оцените своё устройство 👋
                   </h2>
                   <p className="text-lg text-muted-foreground max-w-md mx-auto leading-relaxed">
                     Выбери категорию устройства для оценки
