@@ -343,12 +343,12 @@ const MacbookCalculator = ({ onBack, onRestart }: MacbookCalculatorProps) => {
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
                 transition={{ type: "spring", stiffness: 200, damping: 15, delay: 0.2 }}
-                className="text-6xl mx-auto"
+                className="w-20 h-20 bg-primary/20 rounded-full flex items-center justify-center mx-auto"
               >
-                🎉
+                <Laptop className="w-10 h-10 text-primary" />
               </motion.div>
                <h2 className="text-2xl md:text-3xl font-bold text-foreground">
-                 Ваше устройство подходит! ✅
+                 Ваше устройство подходит! 🎉
                </h2>
               <p className="text-lg text-muted-foreground">
                 Свяжитесь с менеджером для оценки вашего устройства
