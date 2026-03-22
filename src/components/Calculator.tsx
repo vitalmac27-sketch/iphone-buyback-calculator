@@ -588,9 +588,9 @@ const Calculator = () => {
                   >
                     <CheckCircle2 className="w-10 h-10 text-primary" />
                   </motion.div>
-                  <h2 className="text-2xl md:text-3xl font-bold text-foreground">
-                    Ваш {phoneModels.find((m) => m.id === selectedModel)?.name} подходит! ✅
-                  </h2>
+                   <h2 className="text-2xl md:text-3xl font-bold text-foreground">
+                     Ваше устройство подходит! ✅
+                   </h2>
                   <p className="text-lg text-muted-foreground">
                     Свяжитесь с менеджером для оценки вашего устройства
                   </p>
