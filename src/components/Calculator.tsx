@@ -11,8 +11,6 @@ import {
   conditionOptions,
   screenOptions,
   complectnessOptions,
-  modelColors,
-  colorPrices,
   iphoneCompletenessItems,
   getIphoneCompletenessMultiplier,
   type ConditionOption,
