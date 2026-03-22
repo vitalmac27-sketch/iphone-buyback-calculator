@@ -57,8 +57,6 @@ const Calculator = () => {
   const [selectedCompleteness, setSelectedCompleteness] = useState<IphoneCompletenessItem[]>([]);
 
   const isIPhone17 = selectedModel.startsWith("17");
-  const hasColors = isIPhone17 && modelColors[selectedModel];
-  const STEPS_ORDER = hasColors ? STEPS_ORDER_WITH_COLOR : STEPS_ORDER_NO_COLOR;
 
   const currentIndex = STEPS_ORDER.indexOf(step);
   const totalSteps = STEPS_ORDER.length - 2;
