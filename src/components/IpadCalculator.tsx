@@ -319,9 +319,9 @@ const IpadCalculator = ({ onBack, onRestart }: IpadCalculatorProps) => {
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
                 transition={{ type: "spring", stiffness: 200, damping: 15, delay: 0.2 }}
-                className="w-20 h-20 bg-primary/20 rounded-full flex items-center justify-center mx-auto"
+                className="text-6xl mx-auto"
               >
-                <Tablet className="w-10 h-10 text-primary" />
+                🎉
               </motion.div>
                <h2 className="text-2xl md:text-3xl font-bold text-foreground">
                  Ваше устройство подходит! ✅
