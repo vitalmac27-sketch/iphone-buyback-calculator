@@ -350,8 +350,21 @@ const WatchCalculator = ({ onBack, onRestart }: WatchCalculatorProps) => {
                <h2 className="text-2xl md:text-3xl font-bold text-foreground">
                  Ваше устройство подходит! 🎉
                </h2>
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4 }}
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium text-primary"
+                style={{ background: 'hsla(var(--primary) / 0.12)' }}
+              >
+                <span className="relative flex h-2.5 w-2.5">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-primary"></span>
+                </span>
+                Ответим за 3 минуты
+              </motion.div>
               <p className="text-lg text-muted-foreground">
-                Свяжитесь с менеджером для оценки вашего устройства
+                Напишите нам — мы уже видим вашу конфигурацию!
               </p>
               <div className="space-y-1 text-base text-muted-foreground">
                 <p>⌚ {selectedModel?.name} • {selectedSize}</p>
