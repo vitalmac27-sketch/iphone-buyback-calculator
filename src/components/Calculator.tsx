@@ -534,7 +534,7 @@ const Calculator = () => {
                     Свяжитесь с менеджером для оценки вашего устройства
                   </p>
                   <div className="space-y-1 text-base text-muted-foreground">
-                    <p>📱 {phoneModels.find((m) => m.id === selectedModel)?.name} {storageOptions.find((s) => s.id === selectedStorage)?.label}{selectedColor ? ` · ${modelColors[selectedModel]?.find((c) => c.id === selectedColor)?.label ?? ""}` : ""}</p>
+                    <p>📱 {phoneModels.find((m) => m.id === selectedModel)?.name} {storageOptions.find((s) => s.id === selectedStorage)?.label}</p>
                     <p>🔋 {batteryPercent}% • {screenOptions.find((s) => s.id === selectedScreen)?.label}</p>
                     <p>📦 {selectedCompleteness.map((id) => iphoneCompletenessItems.find((c) => c.id === id)?.label).filter(Boolean).join(", ") || "Только телефон"}</p>
                   </div>
