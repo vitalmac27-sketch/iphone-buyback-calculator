@@ -173,6 +173,37 @@ const IpadCalculator = ({ onBack, onRestart }: IpadCalculatorProps) => {
         </div>
       )}
 
+      {/* Config summary bar */}
+      {progressStep > 1 && step !== "result" && (
+        <div className="mb-4 flex flex-wrap gap-1.5">
+          {selectedModel && (
+            <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-medium text-muted-foreground" style={{ background: 'hsla(220, 20%, 25%, 0.5)' }}>
+              📱 {selectedModel.name}
+            </span>
+          )}
+          {selectedSsd > 0 && (
+            <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-medium text-muted-foreground" style={{ background: 'hsla(220, 20%, 25%, 0.5)' }}>
+              💾 {formatSsd(selectedSsd)}
+            </span>
+          )}
+          {batteryPercent > 0 && (
+            <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-medium text-muted-foreground" style={{ background: 'hsla(220, 20%, 25%, 0.5)' }}>
+              🔋 {batteryPercent}%
+            </span>
+          )}
+          {selectedScreen && (
+            <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-medium text-muted-foreground" style={{ background: 'hsla(220, 20%, 25%, 0.5)' }}>
+              📺 {ipadScreenOptions.find(s => s.id === selectedScreen)?.label}
+            </span>
+          )}
+          {selectedBody && (
+            <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-medium text-muted-foreground" style={{ background: 'hsla(220, 20%, 25%, 0.5)' }}>
+              🔍 {ipadBodyOptions.find(b => b.id === selectedBody)?.label}
+            </span>
+          )}
+        </div>
+      )}
+
       <div className="animate-fade-in-up">
         {/* Model selection */}
         {step === "model" && (
