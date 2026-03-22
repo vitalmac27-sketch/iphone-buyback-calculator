@@ -20,10 +20,9 @@ import {
 } from "@/data/calculatorData";
 
 type DeviceCategory = "iphone" | "macbook" | "ipad" | "applewatch" | null;
-type Step = "welcome" | "model" | "unsupported" | "storage" | "color" | "battery" | "screen" | "condition" | "completeness" | "result";
+type Step = "welcome" | "model" | "unsupported" | "storage" | "battery" | "screen" | "condition" | "completeness" | "result";
 
-const STEPS_ORDER_WITH_COLOR: Step[] = ["welcome", "model", "storage", "color", "battery", "screen", "condition", "completeness", "result"];
-const STEPS_ORDER_NO_COLOR: Step[] = ["welcome", "model", "storage", "battery", "screen", "condition", "completeness", "result"];
+const STEPS_ORDER: Step[] = ["welcome", "model", "storage", "battery", "screen", "condition", "completeness", "result"];
 
 const getBatteryMultiplier = (percent: number): number => {
   const map: Record<number, number> = {
