@@ -383,7 +383,7 @@ const WatchCalculator = ({ onBack, onRestart }: WatchCalculatorProps) => {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full h-14 rounded-2xl shadow-lg transition-all hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-3 text-lg font-semibold text-white"
-                style={{ background: 'linear-gradient(135deg, hsl(265, 70%, 52%), hsl(265, 70%, 42%))' }}
+                style={{ background: 'linear-gradient(135deg, hsl(270, 100%, 50%), hsl(280, 80%, 38%))' }}
               >
                 <MessageCircle className="w-6 h-6" />
                 Связаться в Max
