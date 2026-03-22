@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { ArrowLeft, CheckCircle2, Tablet } from "lucide-react";
+import { ArrowLeft, CheckCircle2, Tablet, Phone } from "lucide-react";
 import { motion } from "framer-motion";
 import {
   ipadModels,
