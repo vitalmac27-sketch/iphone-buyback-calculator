@@ -243,6 +243,37 @@ const Calculator = () => {
               </div>
             )}
 
+            {/* Config summary bar */}
+            {progressStep > 1 && step !== "result" && step !== "unsupported" && deviceCategory === "iphone" && (
+              <div className="mb-4 flex flex-wrap gap-1.5">
+                {selectedModel && (
+                  <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-medium text-muted-foreground" style={{ background: 'hsla(220, 20%, 25%, 0.5)' }}>
+                    📱 {phoneModels.find(m => m.id === selectedModel)?.name}
+                  </span>
+                )}
+                {selectedStorage && (
+                  <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-medium text-muted-foreground" style={{ background: 'hsla(220, 20%, 25%, 0.5)' }}>
+                    💾 {storageOptions.find(s => s.id === selectedStorage)?.label}
+                  </span>
+                )}
+                {batteryPercent > 0 && (
+                  <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-medium text-muted-foreground" style={{ background: 'hsla(220, 20%, 25%, 0.5)' }}>
+                    🔋 {batteryPercent}%
+                  </span>
+                )}
+                {selectedScreen && (
+                  <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-medium text-muted-foreground" style={{ background: 'hsla(220, 20%, 25%, 0.5)' }}>
+                    📺 {screenOptions.find(s => s.id === selectedScreen)?.label}
+                  </span>
+                )}
+                {selectedCondition && (
+                  <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-medium text-muted-foreground" style={{ background: 'hsla(220, 20%, 25%, 0.5)' }}>
+                    🔍 {conditionOptions.find(c => c.id === selectedCondition)?.label}
+                  </span>
+                )}
+              </div>
+            )}
+
             <div>
 
             {/* Welcome */}
