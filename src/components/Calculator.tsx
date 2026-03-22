@@ -592,12 +592,14 @@ const Calculator = () => {
                     Связаться в ВКонтакте
                    </a>
                   <a
-                    href="tel:89503185530"
+                    href="https://max.ru/u/f9LHodD0cOKL8Mk0lfHio4e_gcngeksKFArxcQI02Rc4-J0bgPNUNuWdCIk"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="w-full h-14 rounded-2xl shadow-lg transition-all hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-3 text-lg font-semibold text-white"
-                    style={{ background: 'linear-gradient(135deg, hsl(0, 0%, 35%), hsl(0, 0%, 25%))' }}
+                    style={{ background: 'linear-gradient(135deg, hsl(265, 70%, 52%), hsl(265, 70%, 42%))' }}
                   >
-                    <Phone className="w-6 h-6" />
-                    Позвонить
+                    <MessageCircle className="w-6 h-6" />
+                    Связаться в Max
                   </a>
                   <button
                     onClick={restart}
