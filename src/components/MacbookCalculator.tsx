@@ -163,20 +163,36 @@ const MacbookCalculator = ({ onBack, onRestart }: MacbookCalculatorProps) => {
       {progressStep > 0 && step !== "result" && (
         <div className="mb-8">
           <div className="flex items-center justify-between mb-3">
-            <div className="flex gap-1.5">
+            <div className="flex items-center gap-2">
               {Array.from({ length: totalSteps }, (_, i) => (
-                <div
-                  key={i}
-                  className="h-1.5 rounded-full transition-all duration-500"
-                  style={{
-                    width: i + 1 === progressStep ? '2rem' : '0.75rem',
-                    background: i + 1 <= progressStep ? 'hsl(var(--primary))' : 'hsla(220, 20%, 30%, 0.5)',
-                  }}
-                />
+                <div key={i} className="flex items-center gap-2">
+                  <div
+                    className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all duration-300 ${
+                      i + 1 < progressStep
+                        ? "bg-primary text-primary-foreground"
+                        : i + 1 === progressStep
+                        ? "bg-primary text-primary-foreground ring-2 ring-primary/30 ring-offset-2 ring-offset-background"
+                        : "text-muted-foreground"
+                    }`}
+                    style={{
+                      background: i + 1 > progressStep ? 'hsla(220, 20%, 30%, 0.5)' : undefined,
+                    }}
+                  >
+                    {i + 1}
+                  </div>
+                  {i < totalSteps - 1 && (
+                    <div
+                      className="w-4 h-0.5 rounded-full transition-all duration-300"
+                      style={{
+                        background: i + 1 < progressStep ? 'hsl(var(--primary))' : 'hsla(220, 20%, 30%, 0.5)',
+                      }}
+                    />
+                  )}
+                </div>
               ))}
             </div>
             <span className="text-xs text-muted-foreground font-medium">
-              {progressStep}/{totalSteps}
+              Шаг {progressStep} из {totalSteps}
             </span>
           </div>
         </div>
