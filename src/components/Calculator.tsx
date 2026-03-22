@@ -93,14 +93,8 @@ const Calculator = () => {
     const model = phoneModels.find((m) => m.id === selectedModel);
     if (!model) return 0;
 
-    let basePrice: number;
-    if (hasColors && selectedColor) {
-      const key = `${selectedModel}_${selectedStorage}_${selectedColor}`;
-      basePrice = colorPrices[key] ?? model.basePrice;
-    } else {
-      const storage = storageOptions.find((s) => s.id === selectedStorage);
-      basePrice = model.basePrice * (storage?.multiplier ?? 1);
-    }
+    const storage = storageOptions.find((s) => s.id === selectedStorage);
+    let basePrice = model.basePrice * (storage?.multiplier ?? 1);
 
     const condition = conditionOptions.find((c) => c.id === selectedCondition);
     const screen = screenOptions.find((s) => s.id === selectedScreen);
