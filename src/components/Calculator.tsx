@@ -123,12 +123,11 @@ const Calculator = () => {
   const buildContactMessage = () => {
     const model = phoneModels.find((m) => m.id === selectedModel);
     const storage = storageOptions.find((s) => s.id === selectedStorage);
-    const colorLabel = selectedColor ? modelColors[selectedModel]?.find((c) => c.id === selectedColor)?.label : "";
     const condition = conditionOptions.find((c) => c.id === selectedCondition);
     const screen = screenOptions.find((s) => s.id === selectedScreen);
     const complLabels = selectedCompleteness.map((id) => iphoneCompletenessItems.find((c) => c.id === id)?.label).filter(Boolean).join(", ");
 
-    return `Здравствуйте! Хочу продать iPhone.\n\n📱 ${model?.name ?? ""}${colorLabel ? ` ${colorLabel}` : ""} ${storage?.label ?? ""}\n🔋 ${batteryPercent}% • ${screen?.label ?? ""}\n🖥 Корпус: ${condition?.label ?? ""}\n📦 ${complLabels || "Только телефон"}`;
+    return `Здравствуйте! Хочу продать iPhone.\n\n📱 ${model?.name ?? ""} ${storage?.label ?? ""}\n🔋 ${batteryPercent}% • ${screen?.label ?? ""}\n🖥 Корпус: ${condition?.label ?? ""}\n📦 ${complLabels || "Только телефон"}`;
   };
 
   const whatsappUrl = () => {
