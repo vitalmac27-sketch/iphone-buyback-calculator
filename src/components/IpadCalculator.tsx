@@ -398,7 +398,7 @@ const IpadCalculator = ({ onBack, onRestart }: IpadCalculatorProps) => {
               </div>
             </div>
             <TrustBadges variant="compact" />
-            <div className="flex flex-col gap-3">
+            <div ref={contactButtonsRef} className="flex flex-col gap-3">
               <a
                 href={whatsappUrl()}
                 target="_blank"
