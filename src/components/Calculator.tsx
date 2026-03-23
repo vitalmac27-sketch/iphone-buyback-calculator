@@ -575,6 +575,7 @@ const Calculator = () => {
                     <p>📦 {selectedCompleteness.map((id) => iphoneCompletenessItems.find((c) => c.id === id)?.label).filter(Boolean).join(", ") || "Только телефон"}</p>
                   </div>
                 </div>
+                <TrustBadges variant="compact" />
                 <div className="flex flex-col gap-3">
                   <a
                     href={whatsappUrl()}

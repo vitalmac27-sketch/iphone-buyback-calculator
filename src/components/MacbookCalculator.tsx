@@ -392,6 +392,7 @@ const MacbookCalculator = ({ onBack, onRestart }: MacbookCalculatorProps) => {
                 <p>📦 {macbookCompletenessOptions.find((c) => c.id === selectedCompleteness)?.label}</p>
               </div>
             </div>
+            <TrustBadges variant="compact" />
             <div className="flex flex-col gap-3">
               <a
                 href={whatsappUrl()}
