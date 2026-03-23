@@ -50,6 +50,16 @@ const Calculator = () => {
   const { toast } = useToast();
   const [deviceCategory, setDeviceCategory] = useState<DeviceCategory>(null);
   const [step, setStep] = useState<Step>("welcome");
+  const contactButtonsRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (step === "result") {
+      const timer = setTimeout(() => {
+        contactButtonsRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+      }, 1500);
+      return () => clearTimeout(timer);
+    }
+  }, [step]);
   const [selectedModel, setSelectedModel] = useState("");
   const [selectedStorage, setSelectedStorage] = useState("");
   const [selectedCondition, setSelectedCondition] = useState("");
