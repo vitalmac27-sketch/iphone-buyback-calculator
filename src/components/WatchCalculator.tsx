@@ -35,6 +35,16 @@ interface WatchCalculatorProps {
 const WatchCalculator = ({ onBack, onRestart }: WatchCalculatorProps) => {
   const { toast } = useToast();
   const [step, setStep] = useState<WatchStep>("model");
+  const contactButtonsRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (step === "result") {
+      const timer = setTimeout(() => {
+        contactButtonsRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+      }, 1500);
+      return () => clearTimeout(timer);
+    }
+  }, [step]);
   const [selectedModelId, setSelectedModelId] = useState("");
   const [selectedSize, setSelectedSize] = useState("");
   const [batteryPercent, setBatteryPercent] = useState(0);

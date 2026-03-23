@@ -36,6 +36,16 @@ interface IpadCalculatorProps {
 const IpadCalculator = ({ onBack, onRestart }: IpadCalculatorProps) => {
   const { toast } = useToast();
   const [step, setStep] = useState<IpadStep>("model");
+  const contactButtonsRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (step === "result") {
+      const timer = setTimeout(() => {
+        contactButtonsRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+      }, 1500);
+      return () => clearTimeout(timer);
+    }
+  }, [step]);
   const [selectedModelId, setSelectedModelId] = useState("");
   const [selectedSsd, setSelectedSsd] = useState<number>(0);
   const [selectedScreen, setSelectedScreen] = useState("");

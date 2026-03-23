@@ -37,6 +37,16 @@ interface MacbookCalculatorProps {
 const MacbookCalculator = ({ onBack, onRestart }: MacbookCalculatorProps) => {
   const { toast } = useToast();
   const [step, setStep] = useState<MacbookStep>("series");
+  const contactButtonsRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (step === "result") {
+      const timer = setTimeout(() => {
+        contactButtonsRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+      }, 1500);
+      return () => clearTimeout(timer);
+    }
+  }, [step]);
   const [selectedSeries, setSelectedSeries] = useState<MacbookSeries | "">("");
   const [selectedModelId, setSelectedModelId] = useState("");
   const [selectedRam, setSelectedRam] = useState<number>(0);
