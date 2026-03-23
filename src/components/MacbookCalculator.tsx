@@ -1,6 +1,7 @@
 import { useState, useMemo } from "react";
 import { ChevronRight, ArrowLeft, CheckCircle2, AlertTriangle, Laptop, MessageCircle } from "lucide-react";
 import { motion } from "framer-motion";
+import TrustBadges from "@/components/TrustBadges";
 import {
   macbookModels,
   macbookScreenOptions,
