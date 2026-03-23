@@ -451,7 +451,7 @@ const MacbookCalculator = ({ onBack, onRestart }: MacbookCalculatorProps) => {
                 style={{ background: 'linear-gradient(135deg, hsl(270, 100%, 50%), hsl(280, 80%, 38%))' }}
               >
                 <span className="flex items-center gap-2 text-lg font-semibold"><MessageCircle className="w-5 h-5" /> Max</span>
-                <span className="text-[10px] opacity-70">📋 текст скопируется автоматически</span>
+                <span className="text-[10px] opacity-70">📋 Конфигурация скопируется — вставьте в чат</span>
               </button>
               <button
                 onClick={onRestart}
