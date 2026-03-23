@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ArrowLeft, CheckCircle2, Watch, MessageCircle } from "lucide-react";
 import { motion } from "framer-motion";
+import TrustBadges from "@/components/TrustBadges";
 import {
   watchModels,
   watchScreenOptions,
