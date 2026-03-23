@@ -34,6 +34,7 @@ interface IpadCalculatorProps {
 }
 
 const IpadCalculator = ({ onBack, onRestart }: IpadCalculatorProps) => {
+  const { toast } = useToast();
   const [step, setStep] = useState<IpadStep>("model");
   const [selectedModelId, setSelectedModelId] = useState("");
   const [selectedSsd, setSelectedSsd] = useState<number>(0);
