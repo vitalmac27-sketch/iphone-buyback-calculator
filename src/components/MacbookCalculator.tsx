@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback } from "react";
+import { useState, useMemo, useCallback, useRef, useEffect } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { ChevronRight, ArrowLeft, CheckCircle2, AlertTriangle, Laptop, MessageCircle } from "lucide-react";
 import { motion } from "framer-motion";
