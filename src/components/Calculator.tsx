@@ -141,9 +141,18 @@ const Calculator = () => {
     return `https://t.me/eofffer?text=${msg}`;
   };
 
-  const vkUrl = () => {
-    return `https://vk.me/skupka_iphones`;
-  };
+  const vkUrl = () => `https://vk.me/skupka_iphones`;
+  const maxUrl = () => `https://max.ru/u/f9LHodD0cOKL8Mk0lfHio4e_gcngeksKFArxcQI02Rc4-J0bgPNUNuWdCIk`;
+
+  const copyAndOpen = useCallback(async (url: string) => {
+    try {
+      await navigator.clipboard.writeText(buildContactMessage());
+      toast({ title: "📋 Текст скопирован", description: "Вставьте сообщение в чат (Ctrl+V)" });
+    } catch {
+      toast({ title: "Не удалось скопировать", description: "Скопируйте текст вручную", variant: "destructive" });
+    }
+    setTimeout(() => window.open(url, "_blank"), 500);
+  }, [buildContactMessage, toast]);
 
   const OptionCard = ({
     label,
