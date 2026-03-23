@@ -1,4 +1,5 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useCallback } from "react";
+import { useToast } from "@/hooks/use-toast";
 import { ChevronRight, ArrowLeft, CheckCircle2, AlertTriangle, Smartphone, Laptop, Tablet, Watch, MessageCircle } from "lucide-react";
 import { motion } from "framer-motion";
 import logo from "@/assets/logo.jpg";
