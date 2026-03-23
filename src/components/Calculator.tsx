@@ -666,6 +666,7 @@ const Calculator = () => {
                       Max
                     </button>
                   </div>
+                  <p className="text-center text-xs text-muted-foreground/60">📋 Текст с конфигурацией скопируется автоматически</p>
                   <button
                     onClick={restart}
                     className="w-full h-12 border border-[var(--glass-border)] hover:border-primary/30 transition-all text-sm font-medium rounded-xl text-muted-foreground hover:text-foreground flex items-center justify-center"
