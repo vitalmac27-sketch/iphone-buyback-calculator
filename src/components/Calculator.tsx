@@ -303,7 +303,10 @@ const Calculator = () => {
               <div className="text-center space-y-8 pt-4">
                 <div className="flex flex-col items-center space-y-6">
                   <div className="relative mt-2" style={{ minHeight: '120px' }}>
-                    <div className="absolute inset-0 bg-primary/20 blur-3xl rounded-full" />
+                    <div className="absolute -inset-4 bg-primary/15 blur-[60px] rounded-full" />
+                    <div className="absolute inset-0 rounded-2xl overflow-hidden">
+                      <div className="absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-background to-transparent z-10" />
+                    </div>
                     <img src={logo} alt="Скупка Айфонов" loading="eager" decoding="sync" className="relative w-full max-w-md h-auto object-contain rounded-2xl" />
                   </div>
                 </div>
