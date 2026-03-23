@@ -33,6 +33,7 @@ interface WatchCalculatorProps {
 }
 
 const WatchCalculator = ({ onBack, onRestart }: WatchCalculatorProps) => {
+  const { toast } = useToast();
   const [step, setStep] = useState<WatchStep>("model");
   const [selectedModelId, setSelectedModelId] = useState("");
   const [selectedSize, setSelectedSize] = useState("");
