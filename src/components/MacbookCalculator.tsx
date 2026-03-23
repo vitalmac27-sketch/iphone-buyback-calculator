@@ -1,6 +1,7 @@
 import { useState, useMemo } from "react";
 import { ChevronRight, ArrowLeft, CheckCircle2, AlertTriangle, Laptop, MessageCircle } from "lucide-react";
 import { motion } from "framer-motion";
+import TrustBadges from "@/components/TrustBadges";
 import {
   macbookModels,
   macbookScreenOptions,
@@ -391,6 +392,7 @@ const MacbookCalculator = ({ onBack, onRestart }: MacbookCalculatorProps) => {
                 <p>📦 {macbookCompletenessOptions.find((c) => c.id === selectedCompleteness)?.label}</p>
               </div>
             </div>
+            <TrustBadges variant="compact" />
             <div className="flex flex-col gap-3">
               <a
                 href={whatsappUrl()}

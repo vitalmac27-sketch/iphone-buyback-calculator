@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ArrowLeft, CheckCircle2, Watch, MessageCircle } from "lucide-react";
 import { motion } from "framer-motion";
+import TrustBadges from "@/components/TrustBadges";
 import {
   watchModels,
   watchScreenOptions,
@@ -372,6 +373,7 @@ const WatchCalculator = ({ onBack, onRestart }: WatchCalculatorProps) => {
                 <p>📦 {selectedCompleteness.map((id) => watchCompletenessItems.find((c) => c.id === id)?.label).filter(Boolean).join(", ") || "Только часы"}</p>
               </div>
             </div>
+            <TrustBadges variant="compact" />
             <div className="flex flex-col gap-3">
               <a href={whatsappUrl()} target="_blank" rel="noopener noreferrer"
                 className="w-full h-14 rounded-2xl shadow-lg transition-all hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-3 text-lg font-semibold text-white"

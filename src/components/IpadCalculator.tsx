@@ -1,6 +1,7 @@
 import { useState, useMemo } from "react";
 import { ArrowLeft, CheckCircle2, Tablet, MessageCircle } from "lucide-react";
 import { motion } from "framer-motion";
+import TrustBadges from "@/components/TrustBadges";
 import {
   ipadModels,
   ipadScreenOptions,
@@ -373,6 +374,7 @@ const IpadCalculator = ({ onBack, onRestart }: IpadCalculatorProps) => {
                 <p>📦 {selectedCompleteness.map((id) => completenessItems.find((c) => c.id === id)?.label).filter(Boolean).join(", ") || "Только iPad"}</p>
               </div>
             </div>
+            <TrustBadges variant="compact" />
             <div className="flex flex-col gap-3">
               <a
                 href={whatsappUrl()}

@@ -2,6 +2,7 @@ import { useState, useMemo } from "react";
 import { ChevronRight, ArrowLeft, CheckCircle2, AlertTriangle, Smartphone, Laptop, Tablet, Watch, MessageCircle } from "lucide-react";
 import { motion } from "framer-motion";
 import logo from "@/assets/logo.jpg";
+import TrustBadges from "@/components/TrustBadges";
 import MacbookCalculator from "@/components/MacbookCalculator";
 import IpadCalculator from "@/components/IpadCalculator";
 import WatchCalculator from "@/components/WatchCalculator";
@@ -293,6 +294,7 @@ const Calculator = () => {
                     Выбери категорию устройства для оценки
                   </p>
                 </div>
+                <TrustBadges variant="full" />
                 <div className="grid grid-cols-2 gap-3">
                   {([
                     { id: "iphone" as const, label: "iPhone", icon: Smartphone, available: true },
@@ -573,6 +575,7 @@ const Calculator = () => {
                     <p>📦 {selectedCompleteness.map((id) => iphoneCompletenessItems.find((c) => c.id === id)?.label).filter(Boolean).join(", ") || "Только телефон"}</p>
                   </div>
                 </div>
+                <TrustBadges variant="compact" />
                 <div className="flex flex-col gap-3">
                   <a
                     href={whatsappUrl()}
