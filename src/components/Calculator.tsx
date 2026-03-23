@@ -600,13 +600,13 @@ const Calculator = () => {
                   <div className="px-3 py-2 border-b border-[var(--glass-border)]">
                     <p className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground/70">Конфигурация</p>
                   </div>
-                  <div className="grid grid-cols-2 gap-x-4 gap-y-1 px-3 py-2 text-xs">
-                    <div className="flex justify-between"><span className="text-muted-foreground">Модель</span><span className="font-medium text-foreground">{phoneModels.find((m) => m.id === selectedModel)?.name}</span></div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-1 px-3 py-2 text-xs">
+                    <div className="flex justify-between"><span className="text-muted-foreground">Модель</span><span className="font-medium text-foreground truncate ml-2">{phoneModels.find((m) => m.id === selectedModel)?.name}</span></div>
                     <div className="flex justify-between"><span className="text-muted-foreground">Память</span><span className="font-medium text-foreground">{storageOptions.find((s) => s.id === selectedStorage)?.label}</span></div>
                     <div className="flex justify-between"><span className="text-muted-foreground">Батарея</span><span className="font-medium text-foreground">{batteryPercent}%</span></div>
-                    <div className="flex justify-between"><span className="text-muted-foreground">Экран</span><span className="font-medium text-foreground">{screenOptions.find((s) => s.id === selectedScreen)?.label}</span></div>
-                    <div className="flex justify-between"><span className="text-muted-foreground">Корпус</span><span className="font-medium text-foreground">{conditionOptions.find((c) => c.id === selectedCondition)?.label}</span></div>
-                    <div className="flex justify-between col-span-2"><span className="text-muted-foreground">Комплект</span><span className="font-medium text-foreground">{selectedCompleteness.map((id) => iphoneCompletenessItems.find((c) => c.id === id)?.label).filter(Boolean).join(", ") || "Только телефон"}</span></div>
+                    <div className="flex justify-between"><span className="text-muted-foreground">Экран</span><span className="font-medium text-foreground truncate ml-2">{screenOptions.find((s) => s.id === selectedScreen)?.label}</span></div>
+                    <div className="flex justify-between"><span className="text-muted-foreground">Корпус</span><span className="font-medium text-foreground truncate ml-2">{conditionOptions.find((c) => c.id === selectedCondition)?.label}</span></div>
+                    <div className="flex justify-between sm:col-span-2"><span className="text-muted-foreground shrink-0">Комплект</span><span className="font-medium text-foreground truncate ml-2">{selectedCompleteness.map((id) => iphoneCompletenessItems.find((c) => c.id === id)?.label).filter(Boolean).join(", ") || "Только телефон"}</span></div>
                   </div>
                 </motion.div>
 
