@@ -88,7 +88,7 @@ const WatchCalculator = ({ onBack, onRestart }: WatchCalculatorProps) => {
   const copyAndOpen = useCallback(async (url: string) => {
     try {
       await navigator.clipboard.writeText(buildContactMessage());
-      toast({ title: "📋 Текст скопирован", description: "Вставьте сообщение в чат (Ctrl+V)" });
+      toast({ title: "📋 Конфигурация скопирована!", description: "Просто вставьте сообщение в чат", duration: 8000 });
     } catch {
       toast({ title: "Не удалось скопировать", description: "Скопируйте текст вручную", variant: "destructive" });
     }
