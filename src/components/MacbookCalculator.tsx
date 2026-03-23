@@ -35,6 +35,7 @@ interface MacbookCalculatorProps {
 }
 
 const MacbookCalculator = ({ onBack, onRestart }: MacbookCalculatorProps) => {
+  const { toast } = useToast();
   const [step, setStep] = useState<MacbookStep>("series");
   const [selectedSeries, setSelectedSeries] = useState<MacbookSeries | "">("");
   const [selectedModelId, setSelectedModelId] = useState("");
