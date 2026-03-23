@@ -443,6 +443,7 @@ const MacbookCalculator = ({ onBack, onRestart }: MacbookCalculatorProps) => {
                 <MessageCircle className="w-6 h-6" />
                 Связаться в Max
               </button>
+              <p className="text-center text-xs text-muted-foreground/60">📋 Текст с конфигурацией скопируется автоматически</p>
               <button
                 onClick={onRestart}
                 className="w-full h-14 border border-[var(--glass-border)] hover:border-primary/30 transition-all text-lg font-semibold rounded-2xl text-foreground flex items-center justify-center"

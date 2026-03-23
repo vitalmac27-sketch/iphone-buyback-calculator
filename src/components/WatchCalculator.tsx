@@ -412,6 +412,7 @@ const WatchCalculator = ({ onBack, onRestart }: WatchCalculatorProps) => {
                 <MessageCircle className="w-6 h-6" />
                 Связаться в Max
               </button>
+              <p className="text-center text-xs text-muted-foreground/60">📋 Текст с конфигурацией скопируется автоматически</p>
             </div>
             <button
               onClick={onRestart}
