@@ -294,6 +294,7 @@ const Calculator = () => {
                     Выбери категорию устройства для оценки
                   </p>
                 </div>
+                <TrustBadges variant="full" />
                 <div className="grid grid-cols-2 gap-3">
                   {([
                     { id: "iphone" as const, label: "iPhone", icon: Smartphone, available: true },
