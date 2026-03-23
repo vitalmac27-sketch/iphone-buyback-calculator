@@ -587,34 +587,16 @@ const Calculator = () => {
                   className="rounded-xl border border-[var(--glass-border)] overflow-hidden"
                   style={{ background: 'hsla(220, 20%, 16%, 0.5)' }}
                 >
-                  <div className="px-4 py-3 border-b border-[var(--glass-border)]">
-                    <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground/70">Ваша конфигурация</p>
+                  <div className="px-3 py-2 border-b border-[var(--glass-border)]">
+                    <p className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground/70">Конфигурация</p>
                   </div>
-                  <div className="divide-y divide-[var(--glass-border)]">
-                    <div className="flex items-center justify-between px-4 py-3">
-                      <span className="text-sm text-muted-foreground">Модель</span>
-                      <span className="text-sm font-medium text-foreground">{phoneModels.find((m) => m.id === selectedModel)?.name}</span>
-                    </div>
-                    <div className="flex items-center justify-between px-4 py-3">
-                      <span className="text-sm text-muted-foreground">Память</span>
-                      <span className="text-sm font-medium text-foreground">{storageOptions.find((s) => s.id === selectedStorage)?.label}</span>
-                    </div>
-                    <div className="flex items-center justify-between px-4 py-3">
-                      <span className="text-sm text-muted-foreground">Батарея</span>
-                      <span className="text-sm font-medium text-foreground">{batteryPercent}%</span>
-                    </div>
-                    <div className="flex items-center justify-between px-4 py-3">
-                      <span className="text-sm text-muted-foreground">Экран</span>
-                      <span className="text-sm font-medium text-foreground">{screenOptions.find((s) => s.id === selectedScreen)?.label}</span>
-                    </div>
-                    <div className="flex items-center justify-between px-4 py-3">
-                      <span className="text-sm text-muted-foreground">Корпус</span>
-                      <span className="text-sm font-medium text-foreground">{conditionOptions.find((c) => c.id === selectedCondition)?.label}</span>
-                    </div>
-                    <div className="flex items-center justify-between px-4 py-3">
-                      <span className="text-sm text-muted-foreground">Комплект</span>
-                      <span className="text-sm font-medium text-foreground">{selectedCompleteness.map((id) => iphoneCompletenessItems.find((c) => c.id === id)?.label).filter(Boolean).join(", ") || "Только телефон"}</span>
-                    </div>
+                  <div className="grid grid-cols-2 gap-x-4 gap-y-1 px-3 py-2 text-xs">
+                    <div className="flex justify-between"><span className="text-muted-foreground">Модель</span><span className="font-medium text-foreground">{phoneModels.find((m) => m.id === selectedModel)?.name}</span></div>
+                    <div className="flex justify-between"><span className="text-muted-foreground">Память</span><span className="font-medium text-foreground">{storageOptions.find((s) => s.id === selectedStorage)?.label}</span></div>
+                    <div className="flex justify-between"><span className="text-muted-foreground">Батарея</span><span className="font-medium text-foreground">{batteryPercent}%</span></div>
+                    <div className="flex justify-between"><span className="text-muted-foreground">Экран</span><span className="font-medium text-foreground">{screenOptions.find((s) => s.id === selectedScreen)?.label}</span></div>
+                    <div className="flex justify-between"><span className="text-muted-foreground">Корпус</span><span className="font-medium text-foreground">{conditionOptions.find((c) => c.id === selectedCondition)?.label}</span></div>
+                    <div className="flex justify-between col-span-2"><span className="text-muted-foreground">Комплект</span><span className="font-medium text-foreground">{selectedCompleteness.map((id) => iphoneCompletenessItems.find((c) => c.id === id)?.label).filter(Boolean).join(", ") || "Только телефон"}</span></div>
                   </div>
                 </motion.div>
 
