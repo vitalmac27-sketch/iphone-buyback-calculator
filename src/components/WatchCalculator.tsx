@@ -397,7 +397,7 @@ const WatchCalculator = ({ onBack, onRestart }: WatchCalculatorProps) => {
               </div>
             </div>
             <TrustBadges variant="compact" />
-            <div className="flex flex-col gap-3">
+            <div ref={contactButtonsRef} className="flex flex-col gap-3">
               <a href={whatsappUrl()} target="_blank" rel="noopener noreferrer"
                 className="w-full h-14 rounded-2xl shadow-lg transition-all hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-3 text-lg font-semibold text-white"
                 style={{ background: 'linear-gradient(135deg, hsl(142, 70%, 42%), hsl(142, 70%, 34%))' }}>
