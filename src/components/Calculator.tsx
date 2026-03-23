@@ -304,7 +304,14 @@ const Calculator = () => {
                 <div className="flex flex-col items-center space-y-6">
                   <div className="relative mt-2" style={{ minHeight: '120px' }}>
                     <div className="absolute -inset-6 bg-primary/10 blur-[80px] rounded-full pointer-events-none" />
-                    <img src={logo} alt="Скупка Айфонов" loading="eager" decoding="sync" className="relative w-full max-w-md h-auto object-contain rounded-2xl" />
+                    <div className="relative overflow-hidden rounded-2xl" style={{ 
+                      maskImage: 'linear-gradient(to bottom, black 60%, transparent 100%), linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)',
+                      WebkitMaskImage: 'linear-gradient(to bottom, black 60%, transparent 100%), linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)',
+                      maskComposite: 'intersect',
+                      WebkitMaskComposite: 'destination-in',
+                    }}>
+                      <img src={logo} alt="Скупка Айфонов" loading="eager" decoding="sync" className="w-full max-w-md h-auto object-contain" />
+                    </div>
                   </div>
                 </div>
                 <div className="space-y-4">
