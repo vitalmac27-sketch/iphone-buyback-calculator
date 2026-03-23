@@ -78,7 +78,7 @@ const WatchCalculator = ({ onBack, onRestart }: WatchCalculatorProps) => {
     return `Здравствуйте! Хочу продать Apple Watch.\n\n⌚ ${selectedModel?.name ?? ""} ${selectedSize}\n🔋 ${batteryPercent}% • ${screen?.label ?? ""}\n🖥 Корпус: ${body?.label ?? ""}\n📦 ${complLabels || "Только часы"}`;
   };
 
-  const whatsappUrl = () => `https://wa.me/89503185530?text=${encodeURIComponent(buildContactMessage())}`;
+  const whatsappUrl = () => `https://wa.me/79503185530?text=${encodeURIComponent(buildContactMessage())}`;
   const telegramUrl = () => `https://t.me/eofffer?text=${encodeURIComponent(buildContactMessage())}`;
   const vkUrl = () => `https://vk.me/skupka_iphones`;
 

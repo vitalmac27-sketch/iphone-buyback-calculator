@@ -79,7 +79,7 @@ const IpadCalculator = ({ onBack, onRestart }: IpadCalculatorProps) => {
     return `Здравствуйте! Хочу продать iPad.\n\n📱 ${selectedModel?.name ?? ""} ${formatSsd(selectedSsd)}\n🔋 ${batteryPercent}% • ${screen?.label ?? ""}\n🖥 Корпус: ${body?.label ?? ""}\n📦 ${complLabels || "Только iPad"}`;
   };
 
-  const whatsappUrl = () => `https://wa.me/89503185530?text=${encodeURIComponent(buildContactMessage())}`;
+  const whatsappUrl = () => `https://wa.me/79503185530?text=${encodeURIComponent(buildContactMessage())}`;
   const telegramUrl = () => `https://t.me/eofffer?text=${encodeURIComponent(buildContactMessage())}`;
   const vkUrl = () => `https://vk.me/skupka_iphones`;
 
