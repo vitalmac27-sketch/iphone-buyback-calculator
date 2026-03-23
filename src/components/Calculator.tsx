@@ -131,7 +131,7 @@ const Calculator = () => {
 
   const whatsappUrl = () => {
     const msg = encodeURIComponent(buildContactMessage());
-    return `https://wa.me/89503185530?text=${msg}`;
+    return `https://wa.me/79503185530?text=${msg}`;
   };
 
   const telegramUrl = () => {
