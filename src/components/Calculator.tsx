@@ -2,6 +2,7 @@ import { useState, useMemo } from "react";
 import { ChevronRight, ArrowLeft, CheckCircle2, AlertTriangle, Smartphone, Laptop, Tablet, Watch, MessageCircle } from "lucide-react";
 import { motion } from "framer-motion";
 import logo from "@/assets/logo.jpg";
+import TrustBadges from "@/components/TrustBadges";
 import MacbookCalculator from "@/components/MacbookCalculator";
 import IpadCalculator from "@/components/IpadCalculator";
 import WatchCalculator from "@/components/WatchCalculator";
